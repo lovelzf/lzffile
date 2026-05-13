@@ -1,0 +1,113 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/imp_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&useInformationSchema=true
+    username: root
+    password: Leewell123!@#
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: Leewell123!@#
+    database: 1
+    jedis:
+      pool:
+        max-active: 1024
+        max-idle: 200
+        min-idle: 0
+        max-wait: 1000
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: Leewell123
+    virtual-host: /
+  influx:
+    url: http://127.0.0.1:8086
+    user: root
+    password: Leewell123!@#
+    database: "00000001"
+    measurement: index-data
+
+# ============================================
+# 异步任务配置（用于后台生成数据）
+# ============================================
+  task:
+    execution:
+      pool:
+        core-size: 2
+        max-size: 4
+        queue-capacity: 100
+        keep-alive: 60s
+      thread-name-prefix: "test-data-"
+minio:
+  endPoint: http://127.0.0.1:9000
+  accessKey: root
+  secretKey: Leewell123!@#
+  storageAdd: D:\IMP-platform\MinIO\minio-data
+kafka:
+  broker: 192.168.20.32:9092
+  group: group1
+  indexTopic: IndexData
+  waveTopic: WaveData
+  checkTopic: CheckData
+backup:
+  #  musqldump.exe的位置，如果配置不正确会导致无法备份MySQL文件
+  mysqldumpPath: D:\IMP-platform\mysql\bin\
+  #  influxd.exe的位置，如果配置不正确会导致无法备份InfluxDB文件
+  influxdPath: D:\IMP-platform\influxdb\
+  host: localhost
+  port: 3306
+  database: imp_platform
+  influxDBHost: localhost
+  #  默认备份路径（注意！路径中不要有空格，结尾保留"\"）
+  baseFolder: D:\IMP-platform\MinIO\minio-data\
+  tables: sys_position,t_bu_self_diagnosis_abnormal_data_record,t_sys_sensortype,t_sys_moduletype_configuration,t_sys_collectormodetype_configuration,sys_role,t_ba_equipment_type,t_bu_alarm_event_diagnosis,sys_relation,t_bu_modbus_config,t_sys_dict_data,t_sys_collectortype_configuration,t_ba_equipment_treenode_machine_part_diagram,t_sys_dictionary,t_bu_alarm_event,t_bu_collector_selfinspection,sys_org,t_bu_collector_module_sensor_configuration,ems_formula,t_ba_machinetype,t_sys_moduletype_sensortype,t_ba_equipment_treenode_equipment,t_sys_target_expand,t_bu_collector_module_sensor,t_bu_collector_module_sensor_measuring_configuration,t_bu_machine_measuring,t_bu_collector,t_sys_collectortype,t_sys_company_expand,ems_data_entry,t_bu_collector_status,t_ba_equipment_treenode_machine_part,t_bu_collector_configuration,t_sys_measuringtype_configuration,t_bu_alarm_event_dtl,t_bu_report,dev_dict,t_sys_device_gateway,t_sys_modbus_config,t_bu_collector_learning,t_sys_sensortype_measuringtype,t_bu_equipment_treenode_equipment_diagnosis,t_sys_collectortype_hardware,ems_equipment_type_position,t_bu_mod_bus_master,t_ba_treenode_focus,t_bu_alarm_interval,t_bu_collector_module_sensor_measuring,t_sys_protocol,t_ba_equipment_treenode,t_bu_collector_updatefile,t_sys_collectortype_updatefile,t_sys_register_activation,t_sys_collectortype_software,t_sys_collector_software,t_bu_collector_module,sys_user,t_sys_measuringtype,t_ba_equipment_treenode_machine_diagram,t_bu_collector_updatefile_plan,t_bu_equipment_treenode_point_part,t_sys_collectortype_moduletype,t_ba_equipment_treenode_machine_part_configuration,t_bu_collector_module_modbus,t_bu_equipment_treenode_point,t_ba_equipment_treenode_machine,t_sys_sensortype_configuration,ems_indicators,t_bu_device_account,t_sys_collectormodetype,t_sys_network_config,t_bu_mod_bus_master_slave_config,t_bu_collector_module_configuration,t_sys_moduletype,dev_file,t_bu_collector_module_trigger,t_bu_equipment_treenode_point_collector,t_bu_device_acc
+  ignoreTables: dev_log,dev_config
+  #  项目名称，用于区分不同项目，备份的文件夹会以项目名称开头
+  projectName: local
+  autoBackup:
+    #    是否开启自动备份
+    enableAutoBackup: false
+    #    是否开启上传文件（阿里OSS）
+    enableUpload: false
+    #    自动备份的七子表达式，0 0 1 1 * ? 标识每月1日的1:00:00开始备份
+    cron: "0 0 1 1 * ?"
+    #    最大保留备份数量
+    maxBackupItem: 3
+    #    正数表示天、负数表示月
+    dateRange: -1
+    #    正数表示天、负数表示月
+    offsetDay: 0
+oss:
+  #  阿里OSS相关配置
+  bucket: leewell-backup-test
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  accessKeyId:
+  accessKeySecret:
+install:
+  addr: D:\\
+  influxdbPath: /home/wlf/leewell-storage/Backup/InfluxDB/
+  
+
+# 数据稀释自动化配置
+data-dilution:
+  auto:
+    # 是否启用自动稀释
+    enabled: true
+    # 定时任务cron表达式（默认每天凌晨1点执行）
+    cron: "0 0 1 * * ?"
+    # 租户ID列表（逗号分隔）
+    tenant-ids: "00000001"
+  disk:
+    # 磁盘占用率上限（百分比）
+    high: 85.0
+    # 磁盘占用率下限（百分比）
+    low: 75.0
+  protection:
+    # 绝对保护期（天）- 最近N天的数据绝对不稀释
+    absolute-days: 90
+  strategy:
+    # 可稀释期内每天保留的数据条数
+    keep-count-per-day: 6
+    # 保留年限（年）- 用于计算可稀释期结束时间和兜底删除
+    retention-period-years: 3

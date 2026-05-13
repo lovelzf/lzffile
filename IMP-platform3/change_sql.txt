@@ -1,0 +1,396 @@
+-- =========================================================
+-- 数据库对齐变更脚本 (幂等化改造版)
+-- 源数据库: 10.128.128.32 / imp_platform
+-- 目标数据库: 10.128.128.16 / imp_platform
+-- 特性: 支持重复执行，不产生报错或重复数据
+-- =========================================================
+USE `imp_platform`;
+
+-- 1. 创建表: act_ext_model - 模型 (天然幂等)
+CREATE TABLE IF NOT EXISTS `act_ext_model` (
+ `ID` varchar(20) NOT NULL,
+ `TENANT_ID` varchar(20) NULL COMMENT '租户id',
+ `DEFINITION_ID` varchar(255) NULL COMMENT '定义id',
+ `DEPLOYMENT_ID` varchar(255) NULL COMMENT '部署id',
+ `ADMIN_ID` varchar(20) NULL COMMENT '管理员id',
+ `NAME` varchar(255) NULL COMMENT '名称',
+ `CODE` varchar(255) NULL COMMENT '编码',
+ `VERSION_CODE` varchar(255) NULL COMMENT '版本',
+ `FORM_TYPE` varchar(255) NULL COMMENT '表单类型',
+ `CATEGORY` varchar(255) NULL COMMENT '分类',
+ `ICON` varchar(255) NULL COMMENT '图标',
+ `COLOR` varchar(255) NULL COMMENT '颜色',
+ `TABLE_JSON` longtext NULL COMMENT '数据库表JSON',
+ `FORM_JSON` longtext NULL COMMENT '表单JSON',
+ `FORM_URL` longtext NULL COMMENT '表单URL',
+ `PROCESS_JSON` longtext NULL COMMENT '流程JSON',
+ `PROCESS_XML` longtext NULL COMMENT '流程XML',
+ `SORT_CODE` int(11) NULL COMMENT '排序码',
+ `EXT_JSON` longtext NULL COMMENT '扩展信息',
+ `MODEL_STATUS` varchar(255) NULL COMMENT '模型状态',
+ `DELETE_FLAG` varchar(255) NULL COMMENT '删除标志',
+ `CREATE_TIME` datetime NULL COMMENT '创建时间',
+ `CREATE_USER` varchar(20) NULL COMMENT '创建用户',
+ `UPDATE_TIME` datetime NULL COMMENT '修改时间',
+ `UPDATE_USER` varchar(20) NULL COMMENT '修改用户'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='模型';
+
+-- 2. 创建表: t_bu_alarm_cluster - 报警聚集点模型 (天然幂等)
+CREATE TABLE IF NOT EXISTS `t_bu_alarm_cluster` (
+ `id` varchar(20) NOT NULL COMMENT '主键',
+ `ropeId` bigint(20) NULL COMMENT '绳ID',
+ `historyId` bigint(20) NULL COMMENT '换绳记录',
+ `centerPosition` double NULL COMMENT '中心位置',
+ `tag` varchar(20) NULL COMMENT '标签',
+ `range` double NULL COMMENT '范围',
+ `updateDate` datetime NULL COMMENT '更新日期',
+ `createDate` datetime NULL COMMENT '创建日期',
+ `equId` bigint(20) NULL COMMENT '设备ID',
+ `machineId` bigint(20) NULL COMMENT '机构ID',
+ `companyId` bigint(20) NULL COMMENT '公司ID',
+ `systemCode` varchar(20) NULL COMMENT '系统编码',
+ `extJson` longtext NULL COMMENT '扩展属性'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报警聚集点模型';
+
+-- 3. 创建表: t_bu_alarm_event_dtl_history - 报警事件详情 (天然幂等)
+CREATE TABLE IF NOT EXISTS `t_bu_alarm_event_dtl_history` (
+ `id` varchar(20) NOT NULL,
+ `equipment_event_id` varchar(64) NULL COMMENT '设备报警事件id',
+ `mechanism_event_id` varchar(64) NULL COMMENT '机构报警事件id',
+ `event_id` varchar(64) NULL COMMENT '部件报警事件id',
+ `equipment_id` varchar(64) NULL COMMENT '设备ID',
+ `mechanism_id` varchar(64) NULL COMMENT '机构ID',
+ `part_id` varchar(64) NULL COMMENT '部件ID',
+ `node_id` varchar(64) NULL COMMENT '测点ID',
+ `sensor_id` varchar(64) NULL COMMENT '传感器ID',
+ `value` float NOT NULL COMMENT '测量值（最大值）',
+ `unit` varchar(50) NULL COMMENT '采集单位',
+ `time` datetime NOT NULL COMMENT '采集时间',
+ `alarm_limit` varchar(255) NULL COMMENT '报警门限',
+ `level` tinyint(4) NOT NULL COMMENT '报警等级',
+ `measurement_type` varchar(50) NULL COMMENT '测量类型',
+ `measurement_type_group` varchar(50) NULL COMMENT '测量类型分组',
+ `limit_type` smallint(6) NULL COMMENT '门限类型（0:高报,1:低报,2:窗内,3:窗外）',
+ `descrip` varchar(500) NULL COMMENT '描述',
+ `status` tinyint(4) NULL COMMENT '报警详情状态 0:未生效 -1:失效 1:生效 2:关闭',
+ `company_id` varchar(64) NULL COMMENT '公司ID',
+ `system_code` varchar(64) NULL COMMENT '系统编号',
+ `equipment_type_id` varchar(64) NULL COMMENT '设备类型ID',
+ `mechanism_type_id` varchar(64) NULL COMMENT '机构类型ID',
+ `part_type_id` varchar(64) NULL COMMENT '部件类型ID',
+ `alarm_type` tinyint(4) NULL COMMENT '故障类型：0:产品故障,1:通讯异常,2:雷击事件,3:接地安装异常,4:雷电预警,5:其他',
+ `conclusion` varchar(500) NULL COMMENT '处理结论',
+ `handle_man` varchar(64) NULL COMMENT '处理人',
+ `handle_time` datetime NULL COMMENT '处理时间',
+ `TENANT_ID` varchar(64) NULL DEFAULT '-1' COMMENT '租户ID',
+ `begin_time` datetime NULL COMMENT '开始时间',
+ `last_time` datetime NULL COMMENT '最后时间',
+ `span` varchar(50) NULL COMMENT '持续时间',
+ `event_key` varchar(255) NULL,
+ `ext_json` mediumtext NULL COMMENT '扩展字段'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报警事件详情';
+
+-- 4. 添加列: t_bu_equipment_treenode_point_collector.ext_json (幂等化处理)
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 't_bu_equipment_treenode_point_collector' AND COLUMN_NAME = 'ext_json');
+SET @sql = IF(@col_exists = 0, 'ALTER TABLE `t_bu_equipment_treenode_point_collector` ADD COLUMN `ext_json` text NULL COMMENT ''扩展属性JSON''', 'SELECT 1');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- 5. 添加列: wrd_wire_rope_history.is_last (幂等化处理)
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'wrd_wire_rope_history' AND COLUMN_NAME = 'is_last');
+SET @sql = IF(@col_exists = 0, 'ALTER TABLE `wrd_wire_rope_history` ADD COLUMN `is_last` int(11) NULL COMMENT ''位置''', 'SELECT 1');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- 6. 创建表: wrd_wire_rope_relation (天然幂等)
+CREATE TABLE IF NOT EXISTS `wrd_wire_rope_relation` (
+ `ID` varchar(20) NOT NULL COMMENT '主键',
+ `rope_id` varchar(50) NOT NULL COMMENT '钢丝绳',
+ `part_segment_code` varchar(50) NOT NULL COMMENT '绳段code',
+ `point_id` varchar(50) NOT NULL COMMENT '测点名称',
+ `part_segment_name` varchar(50) NOT NULL COMMENT '绳段name'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='部件和测点绳段的关联表';
+
+-- 7. 创建表: wrd_wire_rope_type (天然幂等)
+CREATE TABLE IF NOT EXISTS `wrd_wire_rope_type` (
+ `id` varchar(20) NOT NULL PRIMARY KEY,
+ `type` int(11) NULL,
+ `name` varchar(100) NULL,
+ `description` longtext NULL,
+ `sort_by` int(11) NULL,
+ `system_code` varchar(20) NULL,
+ `company_id` varchar(20) NULL,
+ `tenant_id` varchar(20) NULL DEFAULT '-1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='钢丝绳类型';
+
+-- 8. 创建表: wrd_wire_segment_check (天然幂等)
+CREATE TABLE IF NOT EXISTS `wrd_wire_segment_check` (
+ `id` varchar(64) NOT NULL COMMENT '主键ID (使用雪花算法生成). 作为每条记录的唯一标识符.',
+ `wire_rope_id` varchar(64) NULL COMMENT '钢丝绳ID(TreeNode), 标识钢丝绳在特定位置上的身份.',
+ `wire_rope_history_id` varchar(64) NULL COMMENT '钢丝绳版本ID(TreeNode)',
+ `wire_rope_seg_id` varchar(64) NULL COMMENT '钢丝绳位置 &绳段ID(TreeNode)',
+ `total_broken_wire` int(11) NULL COMMENT '断丝总数',
+ `pitch_max_broken_wire` int(11) NULL COMMENT '单股最大断丝数',
+ `strand_max_broken_wire` int(11) NULL COMMENT '一节距最大断丝数',
+ `check_time` datetime NULL COMMENT '检查时间',
+ `check_user` varchar(255) NULL COMMENT '检查的用户',
+ `remark` text NULL COMMENT '备注',
+ `ext_json` text NULL COMMENT '扩展属性'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='钢丝绳历史表，记录钢丝绳使用的历史信息.';
+
+-- 9. 初始化数据: wrd_wire_rope_history.is_last 从 ext_json 提取值 (天然幂等)
+UPDATE `wrd_wire_rope_history`
+SET `is_last` = CASE WHEN JSON_UNQUOTE(JSON_EXTRACT(ext_json, '$.isLast')) = 'true' THEN 1 ELSE 0 END
+WHERE 1=1;
+
+-- 10-15. 插入基础配置数据 (已修复原文本断裂问题，使用 INSERT IGNORE 保证幂等)
+INSERT IGNORE INTO `t_sys_device_gateway` (id, name, network_id, protocl_id, gateway_ip, gateway_port, configuration, state, create_user, create_time, update_user, update_time, TENANT_ID, location, gateway_type, last_communication_time, communication_status, EXT_JSON, org_id, systemcode) VALUES('1904489469240266753', '钢丝绳缺陷检测', '1', '1745687535772864513', '127.0.0.1', 1883, '[{ "key": "prefix", "value": "collect-client" },{ "key": "launcher", "value": "collect-client-launcher" },{ "key": "clientId", "value": "collect-client-gateway" }]', 1, '1543837863788879871', '2025-03-25 19:04:08', '-1', '2026-04-07 21:47:11', '-1', NULL, NULL, NULL, NULL, '{ "lastCommunicationTime": "2026-04-07 21:47:11", "communicationStatus":1 }', '1543842934270394368', 'wirerope-monitor');
+
+INSERT IGNORE INTO `t_sys_collectortype` (Code, Name, ImageFileID, Description, HardwareInfo, SortBy, TENANT_ID) VALUES('AI-C-10', 'AI监测站', NULL, '用于采集摄像机视频图片数据进行AI分析', NULL, 2, '-1');
+
+INSERT IGNORE INTO `t_sys_collectortype_configuration` (ID, CollectorTypeCode, ConfigurationCode, Content, DefaultValue, SortBy, TENANT_ID) VALUES 
+('1839916980725415937', 'AI-C-10', 'collectType', '1', '1', 1, '-1'),
+('1839916980729610242', 'AI-C-10', 'indexPeriod', '', '10', 4, '-1'),
+('1839916980733804545', 'AI-C-10', 'wavePeriod', '', '60', 5, '-1'),
+('1893855038425083905', 'AI-C-10', 'endTime', '', '23:59:59', 5, '-1'),
+('1893855038429278209', 'AI-C-10', 'startTime', '', '00:00:00', 4, '-1'),
+('1893855038433472514', 'AI-C-10', 'confidence', '', '0.3', 3, '-1'),
+('1909141134107578369', 'AI-C-10', 'collectType', '0', '0', 1, '-1');
+
+INSERT IGNORE INTO `t_sys_moduletype` (Code, Name, `Type`, ImageFileID, Description, SortBy, TENANT_ID) VALUES('11', '钢丝绳缺陷监测模块', 0, NULL, '钢丝绳缺陷监测系统', 0, '-1');
+
+INSERT IGNORE INTO `t_sys_collectortype_moduletype` (ID, CollectorTypeCode, ModuleTypeCodeList, ModuleAddress, TENANT_ID) VALUES('1833026262635954178', 'AI-C-10', '11', 1, '-1');
+
+INSERT IGNORE INTO `t_sys_moduletype_configuration` (ID, ModuleTypeCode, ConfigurationCode, Content, DefaultValue, SortBy, TENANT_ID) VALUES 
+('1839931447047684098', '11', 'samplingRate', '', '24', 1, '-1'),
+('1919641784336056321', '11', 'StreamHost', '', '', 2, '-1'),
+('1919641784340250626', '11', 'StreamPort', '', '1935', 3, '-1'),
+('1939506795137007618', '11', 'hSpeed', '', '2.5', 99, '-1'),
+('1939506795145396225', '11', 'tFitting', '', '85', 99, '-1'),
+('1939506795153784833', '11', 'tSpeed', '', '4', 99, '-1'),
+('1939506795157979137', '11', 'sharePlc', '', '', 99, '-1'),
+('1947463213407899649', '11', 'video-bit-rate', '', '15000', 30, '-1'),
+('1947463213412093953', '11', 'video-compr-level', '', '5', 31, '-1'),
+('1947463213416288257', '11', 'video-global-quality', '', '20', 32, '-1'),
+('1947463213420482561', '11', 'video-gop-size', '', '1', 33, '-1'),
+('1947463213424676866', '11', 'video-key-min', '', '1', 34, '-1'),
+('1947463213428871170', '11', 'video-max-rate', '', '15000', 35, '-1'),
+('1947463213433065473', '11', 'video-min-rate', '', '8000', 36, '-1'),
+('1952922352642240513', '11', 'defect-heavy-framed', '', '10', 20, '-1'),
+('1952922352650629122', '11', 'defect-muti-dist-36', '', '100', 21, '-1'),
+('1952922352654823426', '11', 'defect-muti-dist-all', '', '25', 22, '-1'),
+('1952922352654823427', '11', 'defect-muti-percent', '', '10', 23, '-1'),
+('1952922352659017729', '11', 'diameter-save-second', '', '60', 30, '-1'),
+('1952922352663212034', '11', 'image-bright-da', '', '-100', 29, '-1'),
+('1952922352667406338', '11', 'plc-defect-dist', '', '100', 28, '-1'),
+('1952922352675794946', '11', 'plc-reg-h-position', '', '1', 7, '-1'),
+('1952922352675794947', '11', 'plc-reg-h-rpm', '', '2', 8, '-1'),
+('1952922352696766466', '11', 'plc-reg-h-speed', '', '0', 6, '-1'),
+('1952922352700960770', '11', 'plc-reg-t-position', '', '5', 11, '-1'),
+('1952922352705155073', '11', 'plc-reg-t-rpm', '', '6', 12, '-1'),
+('1952922352709349377', '11', 'plc-reg-t-speed', '', '4', 10, '-1'),
+('1952922352713543682', '11', 'plc-reg-weight', '', '3', 9, '-1'),
+('1952922352721932289', '11', 'plc-valid-time', '', '1000', 13, '-1'),
+('1952980764642062338', '11', 'defect-sin-h', '', '10', 25, '-1'),
+('1952980764646256642', '11', 'defect-sin-w', '', '30', 26, '-1'),
+('1952980764650450946', '11', 'defect-sin-y', '', '20', 27, '-1'),
+('1953266948274466818', '11', 'plc-enable', '', '1', 18, '-1'),
+('1985156526916026370', '11', 'image-contrast', '', '90', 20, '-1'),
+('1985156526924414978', '11', 'image-mean', '', '130', 19, '-1'),
+('1985241012034912258', '11', 'image-da', NULL, '-95', 21, '-1');
+
+INSERT IGNORE INTO `t_sys_sensortype` (Code, Name, `Type`, ImageFileID, Description, SortBy, TENANT_ID) VALUES('Camera101', '摄像机', 14, NULL, '工业相机', 1, '-1');
+
+INSERT IGNORE INTO `t_sys_sensortype_configuration` (ID, SensorTypeCode, ConfigurationCode, Content, DefaultValue, SortBy, TENANT_ID) VALUES 
+('1839729775088304130', 'Camera101', 'ZlDeviceAddr', '', '', 6, '-1'),
+('1858339126451945473', 'Camera101', 'AutoGainLowerLimit', '', '0', 99, '-1'),
+('1858339126460334082', 'Camera101', 'AutoGainUpperLimit', '', '23.9812', 99, '-1'),
+('1858339126464528386', 'Camera101', 'AutoExposureTimeUpperLimit', '', '100', 99, '-1'),
+('1858339126468722689', 'Camera101', 'AutoExposureTimeLowerLimit', '', '50', 99, '-1'),
+('1858339126472916994', 'Camera101', 'PixelFormat', '', 'Bayer RG8', 90, '-1'),
+('1858339184886988802', 'Camera101', 'GainAuto', '', 'Continuous', 90, '-1'),
+('1858339184891183105', 'Camera101', 'ExposureAuto', '', 'Continuous', 90, '-1'),
+('1887743504619745282', 'Camera101', 'OffsetY', '', '300', 3, '-1'),
+('1887743504623939586', 'Camera101', 'Height', '', '400', 1, '-1'),
+('1912384339364122625', 'Camera101', 'OffsetX', '', '0', 4, '-1'),
+('1912391230072918018', 'Camera101', 'Width', '', '1624', 2, '-1'),
+('1945722569211105281', 'Camera101', 'originDiameterPx', '', '', 5, '-1'),
+('1952921783483576322', 'Camera101', 'defect-h-speed-max', '', '65535', 21, '-1'),
+('1952921783491964930', 'Camera101', 'defect-h-speed-min', '', '500', 22, '-1'),
+('1952921783496159234', 'Camera101', 'defect-t-speed-max', '', '65535', 23, '-1'),
+('1952921783496159235', 'Camera101', 'defect-t-speed-min', '', '500', 24, '-1'),
+('1952921783500353538', 'Camera101', 'diameter-h-speed-max', '', '500', 25, '-1'),
+('1952921783504547842', 'Camera101', 'diameter-t-speed-max', '', '500', 26, '-1'),
+('1953274989338243073', 'Camera101', 'rope-pos-coef-c', '', '0', 13, '-1'),
+('1953274989342437377', 'Camera101', 'rope-pos-coef-h', '', '1', 12, '-1'),
+('1953274989346631682', 'Camera101', 'rope-pos-coef-t', '', '1', 11, '-1'),
+('1978292093747580930', 'Camera101', 'diameterPxCountLimit', '', '2400', 99, '-1'),
+('1978292093751775233', 'Camera101', 'minMsgDiameterPxCount', '', '400', 99, '-1'),
+('1993212248056201218', 'Camera101', 'direction', '1', '1', 10, '-1'),
+('1993234827852709890', 'Camera101', 'tFitting', '', '85', 99, '-1'),
+('2018607538459742209', 'Camera101', 'enableDiameterWear', '0,1,2', '2', 99, '-1'),
+('2018870700656398337', 'Camera101', 'mirrorType', '0,1,2', '2', 99, '-1'),
+('2019323402364489729', 'Camera101', 'positionName', '', '', 27, '-1'),
+('2019324201580728322', 'Camera101', 'stereoAdjustmentValue', '', '0', 12, '-1'),
+('2019324201584922625', 'Camera101', 'matchTimeThreshold', '', '10', 11, '-1');
+
+INSERT IGNORE INTO `t_sys_moduletype_sensortype` (ID, ModuleTypeCode, SensorTypeCodeList, Channel, SortBy, TENANT_ID) VALUES 
+('1833026202678378497', '11', 'Camera101', 1, 1, '-1'), ('1838510577657905154', '11', 'Camera101', 2, 2, '-1'),
+('1838510655143477250', '11', 'Camera101', 3, 3, '-1'), ('1838510695396212737', '11', 'Camera101', 4, 4, '-1'),
+('1902965635741724674', '11', 'Camera101', 5, 5, '-1'), ('1902965780348743682', '11', 'Camera101', 6, 6, '-1'),
+('1902965780352937986', '11', 'Camera101', 7, 7, '-1'), ('1902965780352937987', '11', 'Camera101', 8, 8, '-1'),
+('1957327216079585281', '11', 'Camera101', 9, 9, '-1'), ('1957327216083779585', '11', 'Camera101', 10, 10, '-1'),
+('1957327216087973890', '11', 'Camera101', 11, 11, '-1'), ('1957327216092168194', '11', 'Camera101', 12, 12, '-1'),
+('1957327216096362497', '11', 'Camera101', 13, 13, '-1'), ('1957327216104751105', '11', 'Camera101', 14, 14, '-1'),
+('1957327216108945409', '11', 'Camera101', 15, 15, '-1'), ('1957327216113139714', '11', 'Camera101', 16, 16, '-1'),
+('1957327216121528322', '11', 'Camera101', 17, 17, '-1'), ('1957327216125722626', '11', 'Camera101', 18, 18, '-1'),
+('1957327216125722627', '11', 'Camera101', 19, 19, '-1'), ('1957327216129916929', '11', 'Camera101', 20, 20, '-1');
+
+INSERT IGNORE INTO `t_sys_measuringtype` (Code, Name, NameEn, TreeCode, ImageFileID, Description, SortBy, TENANT_ID) VALUES 
+('rope', '钢丝绳缺陷监测测量类型', NULL, NULL, NULL, '钢丝绳缺陷监测测量类型', NULL, '-1'),
+('wrd', '钢丝绳缺陷', NULL, 'rope', NULL, NULL, NULL, '-1'),
+('wrs', '钢丝绳使用状态', NULL, 'rope', NULL, NULL, NULL, '-1'),
+('cams', '摄像机状态', NULL, 'rope', NULL, '0-不在线，1-在线', NULL, '-1'),
+('plc_data', 'PLC数据', NULL, 'rope', NULL, 'PLC数据', NULL, '-1'),
+('wireBroken', '断丝', NULL, 'rope', NULL, '断丝', NULL, '-1'),
+('brokenAlarm', '纲丝突出', NULL, 'rope', NULL, '', NULL, '-1'),
+('diameterWear', '钢丝绳磨损', NULL, 'rope', NULL, '钢丝绳磨损', NULL, '-1'),
+('wireAbnormal', '缺陷', NULL, 'rope', NULL, '', NULL, '-1');
+
+INSERT IGNORE INTO `t_sys_measuringtype_configuration` (ID, MeasuringTypeCode, ConfigurationCode, Content, DefaultValue, SortBy, TENANT_ID) VALUES 
+('1851998004339300001', 'diameterWear', 'alarm1_warnDes', '', '请注意，一级报警', 2, '-1'), ('1851998004347700002', 'diameterWear', 'alarm2_warnDes', '', '请注意，二级报警', 5, '-1'),
+('1851998004351900003', 'diameterWear', 'alarm3_warnDes', '', '请注意，三级报警', 9, '-1'), ('1851998004360200004', 'diameterWear', 'alarmType', '1', '1', 4, '-1'),
+('1851998004364400005', 'diameterWear', 'enableLimit', 'true', 'true', 10, '-1'), ('1851998004368600006', 'diameterWear', 'limit1', '', '0', 6, '-1'),
+('1851998004372800007', 'diameterWear', 'limit2', '', '2', 7, '-1'), ('1851998004377000008', 'diameterWear', 'limit3', '', '10', 8, '-1'),
+('1851998004339326978', 'wireAbnormal', 'alarm1_warnDes', '', '请注意，一级报警', 2, '-1'), ('1851998004347715586', 'wireAbnormal', 'alarm2_warnDes', '', '请注意，二级报警', 5, '-1'),
+('1851998004351909889', 'wireAbnormal', 'alarm3_warnDes', '', '请注意，三级报警', 9, '-1'), ('1851998004360298498', 'wireAbnormal', 'alarmType', '1', '1', 4, '-1'),
+('1851998004364492801', 'wireAbnormal', 'enableLimit', 'true', 'true', 10, '-1'), ('1851998004368687106', 'wireAbnormal', 'limit1', '', '0', 6, '-1'),
+('1851998004372881410', 'wireAbnormal', 'limit2', '', '5', 7, '-1'), ('1851998004377075713', 'wireAbnormal', 'limit3', '', '10', 8, '-1');
+
+INSERT IGNORE INTO `t_sys_sensortype_measuringtype` (ID, SensorTypeCode, MeasuringTypeCodeList, `Type`, ShowStatus, ShowName, SortBy, TENANT_ID) VALUES 
+('2041712383649148929', 'Camera101', 'diameterWear', 1, NULL, NULL, 0, '-1'),
+('2041712461013086209', 'Camera101', 'wireAbnormal', 1, NULL, NULL, 1, '-1');
+
+INSERT IGNORE INTO `t_sys_parttype` (Code, Name, Icon, MaxBindCount, TENANT_ID) VALUES('3', '钢丝绳', 1664151825176973313, 2, '-1');
+
+INSERT IGNORE INTO `t_sys_parttype_configuration` (ID, PartTypeCode, ConfigurationCode, Content, DefaultValue, SortBy, TENANT_ID) VALUES 
+('1839597664255672322', '3', 'ropeDiameter', '', '1', 1, '-1'), ('1839604107511922689', '3', 'ropeEndDate', '', '2024-10-01', 22, '-1'),
+('1839604107784552450', '3', 'ropeOrigHour', '', '0', 31, '-1'), ('1839604107784552451', '3', 'ropePresentHour', '', '0', 32, '-1'),
+('1839604107788746753', '3', 'ropePresentTwistlock', '', '0', 33, '-1'), ('1839604107788746754', '3', 'ropeStartDate', '', ' ', 21, '-1'),
+('1839604189154050049', '3', 'ropeTwistlock', '', '0', 34, '-1'), ('1872159028061913089', '3', 'ropePresentHours', NULL, '0', 99, '-1'),
+('1872159028061913090', '3', 'ropeOrigHours', NULL, '0', 99, '-1'), ('1872159028124827649', '3', 'ropeOrigTwistlock', NULL, '0', 99, '-1'),
+('1934869762376531969', '3', 'SHAVE_COUNT', '', '0', 99, '-1');
+
+INSERT IGNORE INTO `wrd_wire_rope_type` (id, `type`, name, description, sort_by, system_code, company_id, tenant_id) VALUES 
+('10425134321825878016', 5, '绳类型1', '绳类型1', 1, 'wirerope-monitor', '1543842934270394368', '-1'),
+('10425134321825878017', 5, '绳类型2', '绳类型2', 2, 'wirerope-monitor', '1543842934270394368', '-1'),
+('10425134321825878018', 6, '绳段类型1', '绳段类型1', 1, 'wirerope-monitor', '1543842934270394368', '-1'),
+('10425134321825878019', 6, '绳段类型2', '绳段类型2', 2, 'wirerope-monitor', '1543842934270394368', '-1');
+
+INSERT IGNORE INTO `t_ba_pointtype` (Code, Name, NormalIcon, ExceptionIcon, UnboundIcon, Alarm1Icon, Alarm2Icon, Alarm3Icon, Alarm4Icon, Description, SortBy, SystemCode, CompanyID, TENANT_ID) VALUES('wrd1', '钢丝绳测点', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 99, 'wirerope-monitor', 1543842934270394368, '-1');
+
+INSERT IGNORE INTO `t_ba_equipment_type` (id, Name, ImageFileID, NormalIcon, ExceptionIcon, SystemCode, CompanyID, TENANT_ID, SortBy, EXT_JSON) VALUES 
+('1904476310433550337', '双起升岸桥', NULL, NULL, NULL, 'wirerope-monitor', 1906557413504909313, '-1', 2, '{"productionFlag":false}'),
+('1904477324637229057', '岸桥', NULL, NULL, NULL, 'wirerope-monitor', 1906557413504909313, '-1', 1, '{"productionFlag":false}'),
+('1904481167269810177', '双小车岸桥', NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 3, NULL),
+('1988144550318243841', '轮胎吊', NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 4, '{"productionFlag":false}'),
+('1988144678861078530', '轨道吊', NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 5, '{"productionFlag":false}');
+
+INSERT IGNORE INTO `t_ba_machinetype` (id, Name, EquipmentTypeId, ImageFileID, NormalIcon, ExceptionIcon, ExpandContext, SystemCode, CompanyID, TENANT_ID, MachineTypeGroup, H5ImageFileID) VALUES 
+('1838505851734261762', '托缆小车', '1631104600886542338', NULL, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 2, NULL),
+('1838505984945356802', '小车机构', '1631104600886542338', 2032035034907643906, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 2, NULL),
+('1838506039404199937', '起升机构', '1631104600886542338', 2032035108320546817, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 2, NULL),
+('1904774831833468929', '副起升', '1904476310433550337', 1914531379464474626, NULL, NULL, NULL, 'wirerope-monitor', 1906557413504909313, '-1', 2, NULL),
+('1909427042836910081', '俯仰机构', '1904477324637229057', 2032034250832842753, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 2, NULL),
+('2017110381999263745', 'Hoist', '1904477324637229057', 2031251288944119810, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 2, NULL),
+('2037356469276479490', '小车机构', '1631104600886542338', NULL, NULL, NULL, NULL, 'wirerope-monitor', 1543842934270394368, '-1', 0, NULL);
+
+-- 15. 系统配置项补充 (天然幂等)
+INSERT IGNORE INTO `t_sys_configuration` (Code, Name, Type, DataType, Content, DefaultValue, Description, SortBy, TENANT_ID) VALUES 
+('polarity', '极性', 0, 3, '0:正极,1:负极', '0', NULL, 99, '-1'), ('defect-h-speed-max', '缺陷检测起升最大速度阈值', 1, 1, NULL, '65535', '钢丝绳项目_寄存器值绝对值', 11, '-1'),
+('defect-h-speed-min', '缺陷检测起升最小速度阈值', 1, 1, NULL, '500', '钢丝绳项目_寄存器值绝对值', 11, '-1'), ('defect-heavy-framed', '缺陷重框像素距离', 2, 1, NULL, '10', '钢丝绳项目_钢丝绳缺陷识别重框中心点像素距离范围内则去其一', 18, '-1'),
+('defect-muti-dist-36', '缺陷3与6类型去重中心像素距离;范围[1~300)', 2, 1, NULL, '100', '钢丝绳项目_缺陷3 &6两个类型有重叠，缺陷相同的像素点判断值', 18, '-1'),
+('defect-muti-dist-all', '两两缺陷去重中心距离像素', 2, 1, NULL, '25', '钢丝绳项目_两两缺陷去重中心距离≤设定值，则认为两缺陷相同(像素点)', 18, '-1'),
+('defect-muti-percent', '两两缺陷中心距离去重比例', 2, 1, NULL, '10', '钢丝绳项目_两两缺陷去重中心距离≤设定距离比例值，认为两缺陷相同(百分比)', 18, '-1'),
+('defect-sin-h', '单点缺陷高度度变化值(像素点)', 2, 1, NULL, '10', '钢丝绳项目', 18, '-1'), ('defect-sin-w', '单点缺陷宽度变化值(像素点)', 2, 1, NULL, '30', '钢丝绳项目', 18, '-1'),
+('defect-sin-y', '单点缺陷Y轴偏移值(像素点)', 2, 1, NULL, '20', '钢丝绳项目', 18, '-1'), ('defect-t-speed-max', '缺陷检测小车最大速度阈值', 1, 1, NULL, '65535', '钢丝绳项目_寄存器值绝对值', 11, '-1'),
+('defect-t-speed-min', '缺陷检测小车最小速度阈值', 1, 1, NULL, '500', '钢丝绳项目_寄存器值绝对值', 11, '-1'), ('diameter-h-speed-max', '钢丝绳直径图片保存的起升最大速度阈值', 1, 1, NULL, '500', '钢丝绳项目_寄存器值绝对值', 10, '-1'),
+('diameter-save-second', '钢丝绳直径图片间隔时间(秒)', 2, 1, NULL, '60', '钢丝绳项目_直径使用的图片存储间隔时间', 18, '-1'), ('diameter-t-speed-max', '钢丝绳直径图片保存的小车最大速度阈值', 1, 1, NULL, '500', '钢丝绳项目_寄存器值绝对值', 10, '-1'),
+('diameterPxCountLimit', '基准直径像素数据个数', 1, 1, NULL, '2400', '计算钢丝绳基准直径像素所需的直径测量值个数', 99, '-1'), ('direction', 'x轴像素与位置关系', 1, 1, '1:x轴像素与位置成正比,2:x轴像素与位置成反比,0:无', '1', '1:x轴像素与位置成正比 ,2:x轴像素与位置成反比 ,0:无', 10, '-1'),
+('enableDiameterWear', '启用磨损分析', 1, 1, '0:关闭, 1:打开,2:自动', '2', '是否启用磨损分析：（默认，打开，关闭）允许相机是否打开磨损分析，主相机默认打开，辅相机默认关闭', 10, '-1'),
+('hSpeed', '起升最大速度(m/s)', 2, 0, NULL, '2.5', '起升最大速度(m/s)', 99, '-1'), ('image-bright-da', '图片识别亮度过暗Da阈值', 2, 0, '', '-105', '钢丝绳项目_范围[-60~-110]', 18, '-1'),
+('image-contrast', '图片对比度（焦距）门限（不小于）', 2, 3, NULL, '90', '图片对比度（焦距）门限不小于此值', 20, '-1'), ('image-da', '图片缺陷区域识别亮度Da值（明亮度）', 2, 3, NULL, '-95', '图片缺陷区域识别亮度Da值（明亮度）', 21, '-1'),
+('image-mean', '图片曝光门限（不高于）', 2, 3, NULL, '130', '图片曝光门限不高于此值', 19, '-1'), ('matchTimeThreshold', '相机对视匹配时间阈值', 1, 1, NULL, '10', '相机对视匹配时间阈值：多长时间内的图片允许匹配为对视的图片，单位毫秒', 11, '-1'),
+('minMsgDiameterPxCount', '磨损最少测量数', 1, 1, NULL, '400', '钢丝绳磨损报警时最少需要一次上传多少个直径测量值', 99, '-1'), ('mirrorType', '开启镜像', 1, 1, '0:不启用镜像,1:左右镜像,2:自动', '2', '启用镜像：是否需要镜像转换，辅相机默认进行左右镜像对换', 10, '-1'),
+('OffsetX', '水平偏移', 1, 1, NULL, '0', NULL, 99, '-1'), ('originDiameterPx', '直径初始像素数', 1, 3, NULL, ' ', '直径初始像素数', 99, '-1'), ('plc-defect-dist', '相同缺陷识别距离偏差范围(厘米)', 2, 1, NULL, '100', '钢丝绳项目_识别相同缺陷绳误差范围', 18, '-1'),
+('plc-enable', 'PLC使能开关[0：关闭 ,1：打开]', 2, 1, NULL, '1', ' 钢丝绳项目_0:PLC数据不参与系统业务处理,1:系统依赖PLC数据。', 18, '-1'), ('plc-reg-h-position', 'PLC起升位置寄存器', 2, 1, NULL, '1', '钢丝绳项目', 18, '-1'),
+('plc-reg-h-rpm', 'PLC起升电机转速寄存器', 2, 1, NULL, '2', '钢丝绳项目', 18, '-1'), ('plc-reg-h-speed', 'PLC起升速度寄存器', 2, 1, NULL, '0', '钢丝绳项目', 18, '-1'),
+('plc-reg-t-position', 'PLC小车位置寄存器', 2, 1, NULL, '5', '钢丝绳项目', 18, '-1'), ('plc-reg-t-rpm', 'PLC小车电机转速寄存器', 2, 1, NULL, '6', '钢丝绳项目', 18, '-1'),
+('plc-reg-t-speed', 'PLC小车速度寄存器', 2, 1, NULL, '4', '钢丝绳项目', 18, '-1'), ('plc-reg-weight', 'PLC吊具重量寄存器', 2, 1, NULL, '3', '钢丝绳项目', 18, '-1'),
+('plc-valid-time', 'PLC数据有效维持时间', 2, 1, NULL, '1000', '钢丝绳项目_PLC数据有效维持时间', 18, '-1'), ('positionName', '位置（名称）', 1, 3, NULL, ' ', '位置（名称）：对视时用于分辨相机的名称； 1，若指定两个相机形成的对视（绑定到同一个测点）相机名称为空时系统会尝试自动生成名称，次序小的默认为左，大的为右 2，如果相机名称可接受自行填写', 99, '-1'),
+('rope-pos-coef-c', '钢丝绳位置系数C(常量)', 1, 0, NULL, '0', '钢丝绳项目', 99, '-1'), ('rope-pos-coef-h', '钢丝绳位置系数B(起升)', 1, 0, NULL, '1', '钢丝绳项目', 99, '-1'),
+('rope-pos-coef-t', '钢丝绳位置系数A(小车)', 1, 0, NULL, '1', '钢丝绳项目', 99, '-1'), ('sharePlc', '共享PLC数据的采集站编码', 2, 3, NULL, ' ', '共享PLC数据的采集站编码', 99, '-1'),
+('SHAVE_COUNT', '滑轮数', 4, 1, NULL, '0', NULL, 99, '-1'), ('stereoAdjustmentValue', '相机对视调整值（mm）', 1, 1, NULL, '0', '相机对视调整值（mm）：考虑两台相机无法保证在同一条直线上，后续可基于安装位置（主相机）的位置进行补偿', 12, '-1'),
+('StreamHost', '视频流地址', 2, 3, NULL, ' ', NULL, 19, '-1'), ('StreamPort', '视频流推送端口', 2, 3, NULL, ' ', NULL, 20, '-1'), ('tFitting', 'PLC拟合时使用的固定时延', 1, 1, '', '25', 'PLC拟合时使用的固定时延', 99, '-1'),
+('tSpeed', '小车最大速度(m/s)', 2, 0, '', '4', '小车最大速度(m/s)', 99, '-1'), ('video-bit-rate', '视频流固定码率', 2, 1, '', '15000', '钢丝绳项目', 20, '-1'),
+('video-compr-level', '视频流压缩比', 2, 1, '', '5', '钢丝绳项目_范围[1,51]', 20, '-1'), ('video-global-quality', '视频流图像质量', 2, 1, '', '20', '钢丝绳项目_范围[1,51]', 20, '-1'),
+('video-gop-size', '视频流Gop值', 2, 1, '', '1', '钢丝绳项目_范围[1,10]', 20, '-1'), ('video-key-min', '视频流关键帧倍数', 2, 1, '', '1', '钢丝绳项目_范围[1,10]', 20, '-1'),
+('video-max-rate', '视频流最大动态码率', 2, 1, '', '15000', '钢丝绳项目_范围[1000, 5024000]', 20, '-1'), ('video-min-rate', '视频流最小动态码率', 2, 1, '', '8000', '钢丝绳项目_范围[1000, 5024000]', 20, '-1'),
+('Width', 'ROI宽度', 1, 1, NULL, '1624', NULL, 99, '-1');
+
+-- 16. 字典表去重 (幂等化改造：安全重建去重，避免原 RENAME 导致的二次执行报错)
+DROP TABLE IF EXISTS `t_sys_dictionary_backup`;
+DROP TABLE IF EXISTS `t_sys_dictionary_tmp`;
+CREATE TABLE `t_sys_dictionary_tmp` AS
+SELECT DISTINCT source, sourceLanguage, label, entityId, targetLanguage, target, SystemCode, CompanyID, TENANT_ID
+FROM `t_sys_dictionary`;
+RENAME TABLE `t_sys_dictionary` TO `t_sys_dictionary_backup`, `t_sys_dictionary_tmp` TO `t_sys_dictionary`;
+DROP TABLE IF EXISTS `t_sys_dictionary_backup`;
+
+-- 补充字典数据 (天然幂等)
+INSERT IGNORE INTO `t_sys_dictionary` (source, sourceLanguage, label, entityId, targetLanguage, target, SystemCode, CompanyID, TENANT_ID) VALUES 
+('纲丝突出', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲突出', NULL, NULL, '-1'), ('断股', 'ZH_CN', NULL, NULL, 'ZH_HK', '斷股', NULL, NULL, '-1'),
+('断丝', 'ZH_CN', NULL, NULL, 'ZH_HK', '斷絲', NULL, NULL, '-1'), ('钢丝绳直径', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Diameter', NULL, NULL, '-1'),
+('钢丝绳直径', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩直徑', NULL, NULL, '-1'), ('钢丝绳下机日期', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Dismantling date', NULL, NULL, '-1'),
+('钢丝绳下机日期', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩下機日期', NULL, NULL, '-1'), ('钢丝绳长度', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Length', NULL, NULL, '-1'),
+('钢丝绳长度', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩長度', NULL, NULL, '-1'), ('钢丝绳名称', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Name', NULL, NULL, '-1'),
+('钢丝绳名称', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩名稱', NULL, NULL, '-1'), ('钢丝绳初始运行小时', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Original hour', NULL, NULL, '-1'),
+('钢丝绳初始运行小时', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩初始運行小時', NULL, NULL, '-1'), ('钢丝绳初始运行旋锁', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Initial Twistlock', NULL, NULL, '-1'),
+('钢丝绳初始运行旋锁', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩初始運行旋鎖', NULL, NULL, '-1'), ('钢丝绳当前运行小时', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Present hour', NULL, NULL, '-1'),
+('钢丝绳当前运行小时', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩當前運行小時', NULL, NULL, '-1'), ('钢丝绳当前运行旋锁', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Present Twistlock', NULL, NULL, '-1'),
+('钢丝绳当前运行旋锁', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩當前運行旋鎖', NULL, NULL, '-1'), ('钢丝绳段1', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Segment 1', NULL, NULL, '-1'),
+('钢丝绳段1', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩段1', NULL, NULL, '-1'), ('钢丝绳段2', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Segment 2', NULL, NULL, '-1'),
+('钢丝绳段2', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩段2', NULL, NULL, '-1'), ('钢丝绳上机日期', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Installation date', NULL, NULL, '-1'),
+('钢丝绳上机日期', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩上機日期', NULL, NULL, '-1'), ('托架小车', 'ZH_CN', NULL, NULL, 'EN_US', 'Catenary trolley', NULL, NULL, '-1'),
+('托架小车', 'ZH_CN', NULL, NULL, 'ZH_HK', '托架小車', NULL, NULL, '-1'), ('双起升岸桥', 'ZH_CN', NULL, NULL, 'EN_US', 'Dual Hoist QC', NULL, NULL, '-1'),
+('双起升岸桥', 'ZH_CN', NULL, NULL, 'ZH_HK', '雙起升岸橋', NULL, NULL, '-1'), ('钢丝绳', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope', NULL, NULL, '-1'),
+('钢丝绳', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩', NULL, NULL, '-1'), ('关注', 'ZH_CN', NULL, NULL, 'EN_US', 'Attention', NULL, NULL, '-1'),
+('关注', 'ZH_CN', NULL, NULL, 'ZH_HK', '關注', NULL, NULL, '-1'), ('钢丝绳测点', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Measuring Point', NULL, NULL, '-1'),
+('钢丝绳测点', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩測點', NULL, NULL, '-1'), ('AI监测站', 'ZH_CN', NULL, NULL, 'EN_US', 'AI Monitoring Station', NULL, NULL, '-1'),
+('AI监测站', 'ZH_CN', NULL, NULL, 'ZH_HK', 'AI監測站', NULL, NULL, '-1'), ('钢丝绳缺陷监测模块', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Defect Detection Module', NULL, NULL, '-1'),
+('钢丝绳缺陷监测模块', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩缺陷監測模組', NULL, NULL, '-1'), ('正常更换', 'ZH_CN', NULL, NULL, 'EN_US', 'Normal Replacement', NULL, NULL, '-1'),
+('正常更换', 'ZH_CN', NULL, NULL, 'ZH_HK', '正常更換', NULL, NULL, '-1'), ('提示', 'ZH_CN', NULL, NULL, 'EN_US', 'Info', NULL, NULL, '-1'),
+('提示', 'ZH_CN', NULL, NULL, 'ZH_HK', '提示', NULL, NULL, '-1'), ('异常更换', 'ZH_CN', NULL, NULL, 'EN_US', 'Abnormal Replacement', NULL, NULL, '-1'),
+('异常更换', 'ZH_CN', NULL, NULL, 'ZH_HK', '異常更換', NULL, NULL, '-1'), ('意外更换', 'ZH_CN', NULL, NULL, 'ZH_HK', '異常更換', NULL, NULL, '-1'),
+('意外更换', 'ZH_CN', NULL, NULL, 'EN_US', 'Abnormal replacement', NULL, NULL, '-1'), ('告警', 'ZH_CN', NULL, NULL, 'EN_US', 'Warning', NULL, NULL, '-1'),
+('告警', 'ZH_CN', NULL, NULL, 'ZH_HK', '告警', NULL, NULL, '-1'), ('已处理', 'ZH_CN', NULL, NULL, 'EN_US', 'Processed', NULL, NULL, '-1'),
+('已处理', 'ZH_CN', NULL, NULL, 'ZH_HK', '已處理', NULL, NULL, '-1'), ('未处理', 'ZH_CN', NULL, NULL, 'EN_US', 'Unprocessed', NULL, NULL, '-1'),
+('未处理', 'ZH_CN', NULL, NULL, 'ZH_HK', '未處理', NULL, NULL, '-1'), ('主起升', 'ZH_CN', NULL, NULL, 'EN_US', 'Main Hoisting', NULL, NULL, '-1'),
+('主起升', 'ZH_CN', NULL, NULL, 'ZH_HK', '主起升', NULL, NULL, '-1'), ('未确定', 'ZH_CN', NULL, NULL, 'EN_US', 'Unconfirmed', NULL, NULL, '-1'),
+('未生效', 'ZH_CN', NULL, NULL, 'EN_US', 'Inacitve', NULL, NULL, '-1'), ('未生效', 'ZH_CN', NULL, NULL, 'ZH_HK', '未生效', NULL, NULL, '-1'),
+('已失效', 'ZH_CN', NULL, NULL, 'EN_US', 'Expired', NULL, NULL, '-1'), ('已失效', 'ZH_CN', NULL, NULL, 'ZH_HK', '已失效', NULL, NULL, '-1'),
+('起升', 'ZH_CN', NULL, NULL, 'EN_US', 'Hoisting', NULL, NULL, '-1'), ('起升', 'ZH_CN', NULL, NULL, 'ZH_HK', '起升', NULL, NULL, '-1'),
+('磨损', 'ZH_CN', NULL, NULL, 'EN_US', 'Wear', NULL, NULL, '-1'), ('磨损', 'ZH_CN', NULL, NULL, 'ZH_HK', '磨損', NULL, NULL, '-1'),
+('直径磨损', 'ZH_CN', NULL, NULL, 'EN_US', 'Diameter Wear', NULL, NULL, '-1'), ('直径磨损', 'ZH_CN', NULL, NULL, 'ZH_HK', '直徑磨損', NULL, NULL, '-1'),
+('趋势恶化(%)', 'ZH_CN', NULL, NULL, 'EN_US', 'Trend Deterioration (%)', NULL, NULL, '-1'), ('趋势恶化(%)', 'ZH_CN', NULL, NULL, 'ZH_HK', '趨勢惡化(%)', NULL, NULL, '-1'),
+('小车', 'ZH_CN', NULL, NULL, 'EN_US', 'Trolley', NULL, NULL, '-1'), ('小车', 'ZH_CN', NULL, NULL, 'ZH_HK', '小車', NULL, NULL, '-1'),
+('钢丝绳磨损', 'ZH_CN', NULL, NULL, 'EN_US', 'Wire Rope Wear', NULL, NULL, '-1'), ('钢丝绳磨损', 'ZH_CN', NULL, NULL, 'ZH_HK', '鋼絲繩磨損', NULL, NULL, '-1'),
+('缺陷数量', 'ZH_CN', NULL, NULL, 'EN_US', 'Defect Quantity', NULL, NULL, '-1'), ('缺陷数量', 'ZH_CN', NULL, NULL, 'ZH_HK', '缺陷數量', NULL, NULL, '-1'),
+('使用时长', 'ZH_CN', NULL, NULL, 'EN_US', 'Operating Time', NULL, NULL, '-1'), ('使用时长', 'ZH_CN', NULL, NULL, 'ZH_HK', '使用時長', NULL, NULL, '-1'),
+('箱量超标', 'ZH_CN', NULL, NULL, 'EN_US', 'Excessive Container Volume', NULL, NULL, '-1'), ('箱量超标', 'ZH_CN', NULL, NULL, 'ZH_HK', '箱量超標', NULL, NULL, '-1');
+
+-- 清理特定历史配置 (天然幂等：重复执行无影响)
+DELETE FROM `t_sys_parttype_configuration` WHERE ID='1840199353824247810';
+DELETE FROM `t_sys_parttype_configuration` WHERE ID='1840199353824247811';
+
+-- =========================================================
+-- 执行完成：所有操作已确保幂等性，可安全重复执行。
+-- =========================================================
