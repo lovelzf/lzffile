@@ -1,1 +1,1 @@
-
+netstat -ano | findstr "10.150.130.1:55555"
