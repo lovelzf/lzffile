@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic">
+REM 主函数：打开文档→更新所有索引/目录→保存→关闭
+Sub UpdateTOCAndSave()
+    Dim oDoc As Object
+    Dim oIndexes As Object
+    Dim i As Integer
+    REM 获取当前文档
+    oDoc = ThisComponent
+    If Not IsNull(oDoc) Then
+        REM 获取文档中所有索引（含目录）
+        oIndexes = oDoc.getDocumentIndexes()
+        If oIndexes.Count > 0 Then
+            For i = 0 To oIndexes.Count - 1
+                REM 强制更新目录页码与内容
+                oIndexes(i).update()
+            Next i
+        End If
+        REM 保存文档（覆盖原文件）
+        oDoc.store()
+        REM 关闭文档
+        oDoc.close(True)
+    End If
+End Sub
+REM 命令行入口函数
+Sub Main()
+End Sub
+</script:module>
