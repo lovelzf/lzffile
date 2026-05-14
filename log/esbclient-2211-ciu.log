@@ -1,0 +1,511 @@
+2026-05-14 07:06:10.628 | [MQTT Rec: leewell_iss_pub_10.180.90.57] | ERROR | c.lleewell.esbclient.DataForwarder - ISS MQTT connection lost: Connection lost
+org.eclipse.paho.client.mqttv3.MqttException: Connection lost
+	at org.eclipse.paho.client.mqttv3.internal.CommsReceiver.run(CommsReceiver.java:197)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.io.EOFException: null
+	at java.base/java.io.DataInputStream.readByte(DataInputStream.java:273)
+	at org.eclipse.paho.client.mqttv3.internal.wire.MqttInputStream.readMqttWireMessage(MqttInputStream.java:92)
+	at org.eclipse.paho.client.mqttv3.internal.CommsReceiver.run(CommsReceiver.java:137)
+	... 1 common frames omitted
+2026-05-14 16:48:23.693 | [main] | INFO  | c.l.esbclient.EsbClientApplication - Starting EsbClientApplication v0.0.1-SNAPSHOT using Java 17.0.9 with PID 11196 (D:\other\CIUPRocess\leewell-esb-client-deploy\leewell-esb-client-0.0.1-SNAPSHOT.jar started by QC2211-CIU in D:\other\CIUPRocess\leewell-esb-client-deploy)
+2026-05-14 16:48:23.694 | [main] | INFO  | c.l.esbclient.EsbClientApplication - The following 1 profile is active: "prod"
+2026-05-14 16:48:25.403 | [main] | INFO  | o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 10029 (http)
+2026-05-14 16:48:25.434 | [main] | INFO  | o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-14 16:48:25.434 | [main] | INFO  | o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2026-05-14 16:48:25.465 | [main] | INFO  | o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-14 16:48:25.481 | [main] | INFO  | o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1713 ms
+2026-05-14 16:48:25.669 | [main] | ERROR | c.p.g.e.c.i.e.ConfigException - ConfigHelper - getProperty WILDCARD_IC_I is missing or blank
+2026-05-14 16:48:26.532 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - resource.getFile().getAbsolutePath() = D:\other\CIUPRocess\leewell-esb-client-deploy\config1.properties
+2026-05-14 16:48:26.532 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_STATUS_LOC_X, value = /status.log
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_A_URL_X, value = tcp://10.150.130.1:2883,tcp://10.150.130.1:2883
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = HEADER_ASSET_CLASS_M, value = qc
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_COMPRESSION_THRESHOLD_N, value = 1000
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_IC_UPD_R, value = ic_upd_r
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_IMG_REQ, value = eqpt_img_req
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_EVENT_HISTORY_THRESHOLD_N, value = 10
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DEST_COMPONENT_NAME, value = sb
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DEST_DOMAIN_NAME, value = gate
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_RECONNECT_RETRIES_N, value = -1
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_BROKER_URL, value = tcp://10.180.73.231:1883
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_RECONNECT_RETRY_WAIT_N, value = 2
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PK_PATH_X, value = D:/other/CIUPRocess/leewell-esb-client-deploy/key/pk.txt
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_CLIENT_ACK_X, value = client
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_SECURED_A_URL_X, value = ssl://10.150.130.1:9883,ssl://10.150.130.1:9883
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_PASSWORD_X, value = U2FsdGVkX18pHGn35UhXkOtXZLNdHZ4WgpzyzKDPRXsYK8mGk1Ac37MFtAoWda30
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_VPN_M, value = GTOSP_IC1
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = CTRL_TYPE, value = appinfra
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PUBLISH_RETRIES_N, value = 3
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = ZIP_EXT_M, value = .gzip
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = host, value = 10.150.130.1
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = HEADER_ASSET_TYPE_C, value = qc
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = HEADER_SOURCE_M, value = esbclient
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = IC_SERVER_ID, value = ic_sb
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_PROPERTIES, value = ./mqtt.properties
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_CLIENT_VER_N, value = 1
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BUSINESS_UNIT, value = tuas
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = NO_WAIT_FOR_EQPT_INIT_R_I, value = true
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_CENTER_BROKER_URL, value = tcp://10.10.1.176:1883
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_I, value = false
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_DRA_URL_X, value = tcp://10.150.130.1:55555,tcp://10.150.130.1:55555
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = ROUND_ROBIN_CONNECT_I, value = false
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = REGION, value = sg
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = CTRL_ID, value = esbserver_sb
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_KEEP_ALIVE_INTERVAL_N, value = 3
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_TRANSPORT_MODE_X, value = MQTT
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_RETRIES_N, value = 3
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = HEADER_ASSET_ID, value = 1900100011
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_DRA_URL_X, value = tcp://10.150.130.1:2883,tcp://10.150.130.1:2883
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DEST_SYSTEM_NAME, value = gcs
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_SECURED_DRA_URL_X, value = tcps://10.150.130.1:55443,tcps://10.150.130.1:55443
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_INIT_STATUS, value = eqpt_init_status
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_RECONNECT_RETRIES_N, value = 3
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = ESB_HEADER_X, value = gtosplus_esb_header
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = TOPIC_INCLUDE_DEST_I, value = false
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_CMD_X, value = ST_3G 5,M1_3G 5
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SERVER_CODE, value = ESB
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_A_URL_X, value = tcp://10.150.130.1:55555,tcp://10.150.130.1:55555
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_SEND_BUFFER_SIZE_N, value = 2
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = CHECK_COMMS_ENABLED_I, value = false
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_INIT_R, value = eqpt_init_r
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_QOS_N, value = 0
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_USERNAME, value = root
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_CLEAN_SESSION_I, value = 1
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_MAX_INFLIGHT, value = 100
+2026-05-14 16:48:26.548 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SOCKET_PLAINTEXT_URL_X, value = localhost
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_BASE_CMD_X, value = C:\PMPC\config\cei_dial.bat
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_TLS_I, value = 0
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = ORGANIZATION, value = psa
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_USER_M, value = 1900100011_ecms
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_SECURED_A_URL_X, value = tcps://10.150.130.1:55443,tcps://10.150.130.1:55443
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SOCKET_LISTEN_PORT_N, value = 5000
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_CONNECT_RETRIES_N, value = -1
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_IC_UPD, value = ic_upd
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_TRUSTSTORE_PWD_X, value = U2FsdGVkX1+9q74UGSEnQEztbfHvxCNfqCYVVrQSqYk=
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_RETRIES_WAIT_N, value = 3
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_CURRENT_IC_ID, value = f2_1
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_CONFIG, value = eqpt_config
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_TRANSPORT_MODE, value = PUBLISH
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_TRUSTSTORE_X, value = D:/other/CIUPRocess/leewell-esb-client-deploy/cert/soledgeclient_sit.pfx
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_MODE_M, value = st,m1
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SITE, value = f2
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = CLIENT_ID_AUTO_GENERATE_I, value = false
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = HEADER_COMPONENT_M, value = ecms
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PUBLISH_RETRIES_WAIT_N, value = 3
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PROGRESS_CALLBACK_ENABLED_I, value = false
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_TRANSPORT_FORMAT, value = ESB
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_TIME_TO_LIVE_N, value = 0
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = EQPT_INIT, value = eqpt_init
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_LOG_LOC_X, value = /log.log
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_SECURED_DRA_URL_X, value = ssl://10.150.130.1:9883,ssl://10.150.130.1:9883
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PRODUCT_ID, value = gtosplus
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_RECONNECT_DELAY_N, value = 2
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SOLACE_LIMIT_N, value = 30000000
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = PRODUCT_FAMILY, value = ops
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_FORWARD_TOPICS, value = lms2023/Online/+/IndexData/#,lms2023/Online/+/WaveData/#,lms2023/Online/+/CheckData/#
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_TRUSTSTORE_PWD_X, value = U2FsdGVkX1+9q74UGSEnQEztbfHvxCNfqCYVVrQSqYk=
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = LEEWELL_MQTT_PASSWORD, value = Leewell123!@#
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = DIALUP_TIMEOUT_N, value = 3
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = SMF_SYNC_MSG_TIMEOUT_N, value = 40
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = IC_LIST, value = f2_1,f2_2
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_KEEP_ALIVE_INTERVAL_N, value = 3
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = BODY_DEFAULT_IC_ID, value = f2_1
+2026-05-14 16:48:26.564 | [main] | INFO  | c.l.esbclient.config.ConfigLoader - key = MQTT_TRUSTSTORE_X, value = D:/other/CIUPRocess/leewell-esb-client-deploy/cert/soledgeclient_sit.pfx
+2026-05-14 16:48:26.579 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - ClientId: leewell_iss_pub_10.180.90.57
+2026-05-14 16:48:26.579 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - MqttConnectOptions, username: root, password: Leewell123!@#, useTls: false, cleanSession: 1, keepAlive: 3, maxInflight: 100, timeout: 60, truststore: null, truststorePassword: null
+2026-05-14 16:48:26.928 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - MQTT client [leewell_iss_pub_10.180.90.57] connected to broker: tcp://10.180.73.231:1883
+2026-05-14 16:48:26.934 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - Subscribed to topic: lms2023/Online/+/IndexData/# (QoS: 0)
+2026-05-14 16:48:26.935 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - Subscribed to topic: lms2023/Online/+/WaveData/# (QoS: 0)
+2026-05-14 16:48:26.940 | [main] | INFO  | c.lleewell.esbclient.DataForwarder - Subscribed to topic: lms2023/Online/+/CheckData/# (QoS: 0)
+2026-05-14 16:48:27.393 | [main] | INFO  | o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-05-14 16:48:27.487 | [main] | INFO  | o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 10029 (http) with context path '/'
+2026-05-14 16:48:27.503 | [main] | INFO  | c.l.esbclient.EsbClientApplication - Started EsbClientApplication in 4.477 seconds (process running for 7.538)
+2026-05-14 16:48:33.013 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10267, Payload Size: 880104
+2026-05-14 16:48:33.197 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10268, Payload Size: 93665
+2026-05-14 16:48:33.215 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10269, Payload Size: 49739
+2026-05-14 16:48:33.345 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10270, Payload Size: 880488
+2026-05-14 16:48:33.416 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19870, Payload Size: 1422
+2026-05-14 16:48:33.435 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10271, Payload Size: 94050
+2026-05-14 16:48:33.476 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19870, Payload Size: 1422
+2026-05-14 16:48:33.513 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10272, Payload Size: 50122
+2026-05-14 16:48:33.678 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10273, Payload Size: 880478
+2026-05-14 16:48:33.780 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10274, Payload Size: 94035
+2026-05-14 16:48:33.836 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10275, Payload Size: 50155
+2026-05-14 16:48:34.014 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10276, Payload Size: 880141
+2026-05-14 16:48:34.086 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10277, Payload Size: 93703
+2026-05-14 16:48:34.172 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10278, Payload Size: 49779
+2026-05-14 16:48:34.347 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10279, Payload Size: 880107
+2026-05-14 16:48:34.409 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10280, Payload Size: 93670
+2026-05-14 16:48:34.508 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10281, Payload Size: 49752
+2026-05-14 16:48:34.686 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10282, Payload Size: 880109
+2026-05-14 16:48:34.746 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10283, Payload Size: 93665
+2026-05-14 16:48:34.859 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10284, Payload Size: 49758
+2026-05-14 16:48:35.021 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10285, Payload Size: 880155
+2026-05-14 16:48:35.092 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10286, Payload Size: 93714
+2026-05-14 16:48:35.192 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10287, Payload Size: 49774
+2026-05-14 16:48:35.357 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10288, Payload Size: 880152
+2026-05-14 16:48:35.428 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10289, Payload Size: 93702
+2026-05-14 16:48:35.530 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10290, Payload Size: 49755
+2026-05-14 16:48:35.708 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10291, Payload Size: 878730
+2026-05-14 16:48:35.757 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10292, Payload Size: 92286
+2026-05-14 16:48:35.861 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10293, Payload Size: 48474
+2026-05-14 16:48:36.047 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10294, Payload Size: 878732
+2026-05-14 16:48:36.098 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10295, Payload Size: 92289
+2026-05-14 16:48:36.151 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53644, Payload Size: 13352
+2026-05-14 16:48:36.207 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10296, Payload Size: 48476
+2026-05-14 16:48:36.370 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10297, Payload Size: 878729
+2026-05-14 16:48:36.432 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10298, Payload Size: 92282
+2026-05-14 16:48:36.533 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10299, Payload Size: 48473
+2026-05-14 16:48:36.696 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10300, Payload Size: 880098
+2026-05-14 16:48:36.771 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10301, Payload Size: 93657
+2026-05-14 16:48:36.870 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10302, Payload Size: 49793
+2026-05-14 16:48:37.038 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10303, Payload Size: 880488
+2026-05-14 16:48:37.101 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10304, Payload Size: 94043
+2026-05-14 16:48:37.216 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10305, Payload Size: 50141
+2026-05-14 16:48:37.379 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10306, Payload Size: 880135
+2026-05-14 16:48:37.450 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10307, Payload Size: 93697
+2026-05-14 16:48:37.552 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10308, Payload Size: 49793
+2026-05-14 16:48:37.626 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200116, Payload Size: 4233
+2026-05-14 16:48:37.716 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10309, Payload Size: 880109
+2026-05-14 16:48:37.789 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10310, Payload Size: 93674
+2026-05-14 16:48:37.889 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10311, Payload Size: 49742
+2026-05-14 16:48:38.052 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10312, Payload Size: 880081
+2026-05-14 16:48:38.123 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10313, Payload Size: 93640
+2026-05-14 16:48:38.222 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/WaveData/10314, Payload Size: 49735
+2026-05-14 16:48:38.322 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58894, Payload Size: 263
+2026-05-14 16:48:38.440 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58895, Payload Size: 40149
+2026-05-14 16:48:46.082 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19722, Payload Size: 1556
+2026-05-14 16:48:46.193 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19722, Payload Size: 1556
+2026-05-14 16:48:46.212 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/346, Payload Size: 21985
+2026-05-14 16:48:46.560 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278636, Payload Size: 1417
+2026-05-14 16:48:46.660 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278636, Payload Size: 1417
+2026-05-14 16:48:56.890 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58896, Payload Size: 40655
+2026-05-14 16:49:00.642 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200117, Payload Size: 4238
+2026-05-14 16:49:01.134 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53645, Payload Size: 13459
+2026-05-14 16:49:07.602 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/137, Payload Size: 1558
+2026-05-14 16:49:07.633 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/347, Payload Size: 22299
+2026-05-14 16:49:07.714 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/137, Payload Size: 1558
+2026-05-14 16:49:17.977 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58897, Payload Size: 41186
+2026-05-14 16:49:23.435 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200118, Payload Size: 4247
+2026-05-14 16:49:26.125 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53646, Payload Size: 13478
+2026-05-14 16:49:29.021 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/348, Payload Size: 22432
+2026-05-14 16:49:36.050 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19871, Payload Size: 1422
+2026-05-14 16:49:36.150 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19871, Payload Size: 1422
+2026-05-14 16:49:38.532 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58898, Payload Size: 41179
+2026-05-14 16:49:46.217 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200119, Payload Size: 4247
+2026-05-14 16:49:47.325 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19723, Payload Size: 1560
+2026-05-14 16:49:47.429 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19723, Payload Size: 1560
+2026-05-14 16:49:50.209 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/349, Payload Size: 22418
+2026-05-14 16:49:51.324 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53647, Payload Size: 13436
+2026-05-14 16:49:55.143 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278637, Payload Size: 1420
+2026-05-14 16:49:55.254 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278637, Payload Size: 1420
+2026-05-14 16:49:59.578 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58899, Payload Size: 40843
+2026-05-14 16:50:07.157 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/138, Payload Size: 1560
+2026-05-14 16:50:07.267 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/138, Payload Size: 1560
+2026-05-14 16:50:09.262 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200120, Payload Size: 4226
+2026-05-14 16:50:11.609 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/350, Payload Size: 22358
+2026-05-14 16:50:16.257 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53648, Payload Size: 13457
+2026-05-14 16:50:18.698 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58900, Payload Size: 40257
+2026-05-14 16:50:32.077 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200121, Payload Size: 4237
+2026-05-14 16:50:32.820 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/351, Payload Size: 22256
+2026-05-14 16:50:38.639 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19872, Payload Size: 1415
+2026-05-14 16:50:38.746 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19872, Payload Size: 1415
+2026-05-14 16:50:39.611 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58901, Payload Size: 40982
+2026-05-14 16:50:41.412 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53649, Payload Size: 13625
+2026-05-14 16:50:46.956 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19724, Payload Size: 1557
+2026-05-14 16:50:47.054 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19724, Payload Size: 1557
+2026-05-14 16:50:54.042 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/352, Payload Size: 22308
+2026-05-14 16:50:54.864 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200122, Payload Size: 4250
+2026-05-14 16:50:59.122 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58902, Payload Size: 40845
+2026-05-14 16:51:03.784 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278638, Payload Size: 1420
+2026-05-14 16:51:03.882 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278638, Payload Size: 1420
+2026-05-14 16:51:06.405 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53650, Payload Size: 13452
+2026-05-14 16:51:10.983 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/139, Payload Size: 1557
+2026-05-14 16:51:11.081 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/139, Payload Size: 1557
+2026-05-14 16:51:15.452 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/353, Payload Size: 22169
+2026-05-14 16:51:17.870 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200123, Payload Size: 4245
+2026-05-14 16:51:19.703 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58903, Payload Size: 40400
+2026-05-14 16:51:31.352 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53651, Payload Size: 13472
+2026-05-14 16:51:36.647 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/354, Payload Size: 22343
+2026-05-14 16:51:40.437 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58904, Payload Size: 40602
+2026-05-14 16:51:40.655 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200124, Payload Size: 4233
+2026-05-14 16:51:41.251 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19873, Payload Size: 1421
+2026-05-14 16:51:41.352 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19873, Payload Size: 1421
+2026-05-14 16:51:47.869 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19725, Payload Size: 1561
+2026-05-14 16:51:47.887 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19725, Payload Size: 1561
+2026-05-14 16:51:56.477 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53652, Payload Size: 13459
+2026-05-14 16:51:57.863 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/355, Payload Size: 22382
+2026-05-14 16:52:00.233 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58905, Payload Size: 41098
+2026-05-14 16:52:03.522 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200125, Payload Size: 4248
+2026-05-14 16:52:12.361 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278639, Payload Size: 1424
+2026-05-14 16:52:12.470 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278639, Payload Size: 1424
+2026-05-14 16:52:14.808 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/140, Payload Size: 1560
+2026-05-14 16:52:14.919 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/140, Payload Size: 1560
+2026-05-14 16:52:19.274 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/356, Payload Size: 22336
+2026-05-14 16:52:21.076 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58906, Payload Size: 40792
+2026-05-14 16:52:21.488 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53653, Payload Size: 13431
+2026-05-14 16:52:26.451 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200126, Payload Size: 4233
+2026-05-14 16:52:40.470 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/357, Payload Size: 22367
+2026-05-14 16:52:41.951 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58907, Payload Size: 40664
+2026-05-14 16:52:43.866 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19874, Payload Size: 1422
+2026-05-14 16:52:43.969 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19874, Payload Size: 1422
+2026-05-14 16:52:46.624 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53654, Payload Size: 13445
+2026-05-14 16:52:49.246 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200127, Payload Size: 4238
+2026-05-14 16:52:49.272 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19726, Payload Size: 1556
+2026-05-14 16:52:49.377 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19726, Payload Size: 1556
+2026-05-14 16:53:01.680 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/358, Payload Size: 22316
+2026-05-14 16:53:02.873 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58908, Payload Size: 40548
+2026-05-14 16:53:11.551 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53655, Payload Size: 13436
+2026-05-14 16:53:12.034 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200128, Payload Size: 4230
+2026-05-14 16:53:14.397 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/141, Payload Size: 1557
+2026-05-14 16:53:14.496 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/141, Payload Size: 1557
+2026-05-14 16:53:20.941 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278640, Payload Size: 1421
+2026-05-14 16:53:21.040 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278640, Payload Size: 1421
+2026-05-14 16:53:23.080 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/359, Payload Size: 22308
+2026-05-14 16:53:23.643 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58909, Payload Size: 40314
+2026-05-14 16:53:35.059 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200129, Payload Size: 4245
+2026-05-14 16:53:36.527 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53656, Payload Size: 13471
+2026-05-14 16:53:44.285 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/360, Payload Size: 22284
+2026-05-14 16:53:44.723 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58910, Payload Size: 41246
+2026-05-14 16:53:46.435 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19875, Payload Size: 1421
+2026-05-14 16:53:46.545 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19875, Payload Size: 1421
+2026-05-14 16:53:49.102 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19727, Payload Size: 1558
+2026-05-14 16:53:49.211 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19727, Payload Size: 1558
+2026-05-14 16:53:57.858 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200130, Payload Size: 4255
+2026-05-14 16:54:01.692 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53657, Payload Size: 13441
+2026-05-14 16:54:04.189 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58911, Payload Size: 40760
+2026-05-14 16:54:05.491 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/361, Payload Size: 22300
+2026-05-14 16:54:18.217 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/142, Payload Size: 1561
+2026-05-14 16:54:18.313 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/142, Payload Size: 1561
+2026-05-14 16:54:20.664 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200131, Payload Size: 4240
+2026-05-14 16:54:25.051 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58912, Payload Size: 40788
+2026-05-14 16:54:26.620 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53658, Payload Size: 13419
+2026-05-14 16:54:26.908 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/362, Payload Size: 22293
+2026-05-14 16:54:29.557 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278641, Payload Size: 1420
+2026-05-14 16:54:29.667 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278641, Payload Size: 1420
+2026-05-14 16:54:43.665 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200132, Payload Size: 4246
+2026-05-14 16:54:45.639 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58913, Payload Size: 40568
+2026-05-14 16:54:48.126 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/363, Payload Size: 22279
+2026-05-14 16:54:48.995 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19876, Payload Size: 1425
+2026-05-14 16:54:49.101 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19876, Payload Size: 1425
+2026-05-14 16:54:50.030 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19728, Payload Size: 1560
+2026-05-14 16:54:50.139 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19728, Payload Size: 1560
+2026-05-14 16:54:51.776 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53659, Payload Size: 13542
+2026-05-14 16:55:06.433 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58914, Payload Size: 41132
+2026-05-14 16:55:06.454 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200133, Payload Size: 4253
+2026-05-14 16:55:09.328 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/364, Payload Size: 22403
+2026-05-14 16:55:16.761 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53660, Payload Size: 13642
+2026-05-14 16:55:22.038 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/143, Payload Size: 1562
+2026-05-14 16:55:22.134 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/143, Payload Size: 1562
+2026-05-14 16:55:26.994 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58915, Payload Size: 41185
+2026-05-14 16:55:29.272 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200134, Payload Size: 4258
+2026-05-14 16:55:30.720 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/365, Payload Size: 22397
+2026-05-14 16:55:38.192 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278642, Payload Size: 1424
+2026-05-14 16:55:38.295 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278642, Payload Size: 1424
+2026-05-14 16:55:41.694 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53661, Payload Size: 13612
+2026-05-14 16:55:47.553 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58916, Payload Size: 41165
+2026-05-14 16:55:50.472 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19729, Payload Size: 1556
+2026-05-14 16:55:50.574 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19729, Payload Size: 1556
+2026-05-14 16:55:51.599 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19877, Payload Size: 1420
+2026-05-14 16:55:51.696 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19877, Payload Size: 1420
+2026-05-14 16:55:51.925 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/366, Payload Size: 22405
+2026-05-14 16:55:52.255 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200135, Payload Size: 4251
+2026-05-14 16:56:06.825 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53662, Payload Size: 13515
+2026-05-14 16:56:08.339 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58917, Payload Size: 41162
+2026-05-14 16:56:13.145 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/367, Payload Size: 22425
+2026-05-14 16:56:15.072 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200136, Payload Size: 4256
+2026-05-14 16:56:25.861 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/144, Payload Size: 1559
+2026-05-14 16:56:25.961 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/144, Payload Size: 1559
+2026-05-14 16:56:27.423 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58918, Payload Size: 41015
+2026-05-14 16:56:31.808 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53663, Payload Size: 13621
+2026-05-14 16:56:34.562 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/368, Payload Size: 22392
+2026-05-14 16:56:37.870 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200137, Payload Size: 4248
+2026-05-14 16:56:46.795 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278643, Payload Size: 1421
+2026-05-14 16:56:46.894 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278643, Payload Size: 1421
+2026-05-14 16:56:47.979 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58919, Payload Size: 41134
+2026-05-14 16:56:50.900 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19730, Payload Size: 1559
+2026-05-14 16:56:51.007 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19730, Payload Size: 1559
+2026-05-14 16:56:54.192 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19878, Payload Size: 1422
+2026-05-14 16:56:54.315 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19878, Payload Size: 1422
+2026-05-14 16:56:55.755 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/369, Payload Size: 22366
+2026-05-14 16:56:56.952 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53664, Payload Size: 13578
+2026-05-14 16:57:00.874 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200138, Payload Size: 4259
+2026-05-14 16:57:08.757 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58920, Payload Size: 41127
+2026-05-14 16:57:16.954 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/370, Payload Size: 22428
+2026-05-14 16:57:21.879 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53665, Payload Size: 13513
+2026-05-14 16:57:23.713 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200139, Payload Size: 4245
+2026-05-14 16:57:25.414 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/145, Payload Size: 1559
+2026-05-14 16:57:25.523 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/145, Payload Size: 1559
+2026-05-14 16:57:29.313 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58921, Payload Size: 41134
+2026-05-14 16:57:38.360 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/371, Payload Size: 22375
+2026-05-14 16:57:46.491 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200140, Payload Size: 4261
+2026-05-14 16:57:46.876 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53666, Payload Size: 13621
+2026-05-14 16:57:48.401 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58922, Payload Size: 40992
+2026-05-14 16:57:51.329 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19731, Payload Size: 1558
+2026-05-14 16:57:51.433 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19731, Payload Size: 1558
+2026-05-14 16:57:55.421 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278644, Payload Size: 1420
+2026-05-14 16:57:55.519 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278644, Payload Size: 1420
+2026-05-14 16:57:56.792 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19879, Payload Size: 1424
+2026-05-14 16:57:56.896 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19879, Payload Size: 1424
+2026-05-14 16:57:59.573 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/372, Payload Size: 22448
+2026-05-14 16:58:09.164 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58923, Payload Size: 41174
+2026-05-14 16:58:09.486 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200141, Payload Size: 4255
+2026-05-14 16:58:12.026 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53667, Payload Size: 13712
+2026-05-14 16:58:20.771 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/373, Payload Size: 22356
+2026-05-14 16:58:29.245 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/146, Payload Size: 1562
+2026-05-14 16:58:29.344 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/146, Payload Size: 1562
+2026-05-14 16:58:29.723 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58924, Payload Size: 41146
+2026-05-14 16:58:32.302 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200142, Payload Size: 4253
+2026-05-14 16:58:36.970 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53668, Payload Size: 13705
+2026-05-14 16:58:42.171 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/374, Payload Size: 22440
+2026-05-14 16:58:50.272 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58925, Payload Size: 41217
+2026-05-14 16:58:51.704 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19732, Payload Size: 1558
+2026-05-14 16:58:51.814 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19732, Payload Size: 1558
+2026-05-14 16:58:55.088 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200143, Payload Size: 4251
+2026-05-14 16:58:59.369 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19880, Payload Size: 1420
+2026-05-14 16:58:59.465 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19880, Payload Size: 1420
+2026-05-14 16:59:02.130 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53669, Payload Size: 13618
+2026-05-14 16:59:03.378 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/375, Payload Size: 22401
+2026-05-14 16:59:04.016 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278645, Payload Size: 1421
+2026-05-14 16:59:04.115 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278645, Payload Size: 1421
+2026-05-14 16:59:09.562 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58926, Payload Size: 41196
+2026-05-14 16:59:18.105 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200144, Payload Size: 4261
+2026-05-14 16:59:24.576 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/376, Payload Size: 22387
+2026-05-14 16:59:27.104 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53670, Payload Size: 13647
+2026-05-14 16:59:30.132 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58927, Payload Size: 41135
+2026-05-14 16:59:33.047 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/147, Payload Size: 1558
+2026-05-14 16:59:33.145 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/147, Payload Size: 1558
+2026-05-14 16:59:40.896 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200145, Payload Size: 4251
+2026-05-14 16:59:45.972 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/377, Payload Size: 22398
+2026-05-14 16:59:50.693 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58928, Payload Size: 40666
+2026-05-14 16:59:52.032 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53671, Payload Size: 13555
+2026-05-14 16:59:52.144 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19733, Payload Size: 1559
+2026-05-14 16:59:52.248 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19733, Payload Size: 1559
+2026-05-14 17:00:01.933 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19881, Payload Size: 1421
+2026-05-14 17:00:02.030 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19881, Payload Size: 1421
+2026-05-14 17:00:03.692 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200146, Payload Size: 4252
+2026-05-14 17:00:07.751 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/378, Payload Size: 22401
+2026-05-14 17:00:11.463 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58929, Payload Size: 41014
+2026-05-14 17:00:12.614 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278646, Payload Size: 1421
+2026-05-14 17:00:12.713 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278646, Payload Size: 1421
+2026-05-14 17:00:17.195 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53672, Payload Size: 13443
+2026-05-14 17:00:26.697 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200147, Payload Size: 4247
+2026-05-14 17:00:29.584 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/379, Payload Size: 22036
+2026-05-14 17:00:32.013 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58930, Payload Size: 41036
+2026-05-14 17:00:33.898 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/148, Payload Size: 1562
+2026-05-14 17:00:33.994 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/148, Payload Size: 1562
+2026-05-14 17:00:42.170 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53673, Payload Size: 13459
+2026-05-14 17:00:49.475 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200148, Payload Size: 4249
+2026-05-14 17:00:51.190 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/380, Payload Size: 22311
+2026-05-14 17:00:52.564 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19734, Payload Size: 1559
+2026-05-14 17:00:52.591 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58931, Payload Size: 41102
+2026-05-14 17:00:52.673 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19734, Payload Size: 1559
+2026-05-14 17:01:04.535 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19882, Payload Size: 1420
+2026-05-14 17:01:04.642 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19882, Payload Size: 1420
+2026-05-14 17:01:07.297 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53674, Payload Size: 13565
+2026-05-14 17:01:12.260 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200149, Payload Size: 4255
+2026-05-14 17:01:12.741 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/381, Payload Size: 22261
+2026-05-14 17:01:13.308 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58932, Payload Size: 40858
+2026-05-14 17:01:21.166 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278647, Payload Size: 1421
+2026-05-14 17:01:21.271 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278647, Payload Size: 1421
+2026-05-14 17:01:28.081 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/382, Payload Size: 22310
+2026-05-14 17:01:32.237 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53675, Payload Size: 13555
+2026-05-14 17:01:32.418 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58933, Payload Size: 41097
+2026-05-14 17:01:35.271 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200150, Payload Size: 4254
+2026-05-14 17:01:52.978 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19735, Payload Size: 1559
+2026-05-14 17:01:52.995 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58934, Payload Size: 40972
+2026-05-14 17:01:53.077 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19735, Payload Size: 1559
+2026-05-14 17:01:57.209 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53676, Payload Size: 13454
+2026-05-14 17:01:58.071 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200151, Payload Size: 4244
+2026-05-14 17:02:00.046 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/149, Payload Size: 1559
+2026-05-14 17:02:00.153 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/149, Payload Size: 1559
+2026-05-14 17:02:07.132 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19883, Payload Size: 1424
+2026-05-14 17:02:07.231 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19883, Payload Size: 1424
+2026-05-14 17:02:13.384 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/383, Payload Size: 22237
+2026-05-14 17:02:13.770 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58935, Payload Size: 41014
+2026-05-14 17:02:20.869 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200152, Payload Size: 4252
+2026-05-14 17:02:22.350 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53677, Payload Size: 13419
+2026-05-14 17:02:29.781 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278648, Payload Size: 1421
+2026-05-14 17:02:29.884 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278648, Payload Size: 1421
+2026-05-14 17:02:34.284 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58936, Payload Size: 40970
+2026-05-14 17:02:43.882 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200153, Payload Size: 4247
+2026-05-14 17:02:47.292 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53678, Payload Size: 13641
+2026-05-14 17:02:53.537 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19736, Payload Size: 1558
+2026-05-14 17:02:53.563 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58937, Payload Size: 41022
+2026-05-14 17:02:53.645 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19736, Payload Size: 1558
+2026-05-14 17:02:59.547 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/384, Payload Size: 22425
+2026-05-14 17:03:06.647 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200154, Payload Size: 4242
+2026-05-14 17:03:09.674 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19884, Payload Size: 1424
+2026-05-14 17:03:09.770 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19884, Payload Size: 1424
+2026-05-14 17:03:12.460 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53679, Payload Size: 13547
+2026-05-14 17:03:14.324 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58938, Payload Size: 40881
+2026-05-14 17:03:29.459 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200155, Payload Size: 4243
+2026-05-14 17:03:32.643 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/150, Payload Size: 1559
+2026-05-14 17:03:32.743 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/150, Payload Size: 1559
+2026-05-14 17:03:33.442 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58939, Payload Size: 40680
+2026-05-14 17:03:37.436 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53680, Payload Size: 13448
+2026-05-14 17:03:38.368 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278649, Payload Size: 1425
+2026-05-14 17:03:38.473 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278649, Payload Size: 1425
+2026-05-14 17:03:45.943 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/385, Payload Size: 22412
+2026-05-14 17:03:52.462 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200156, Payload Size: 4242
+2026-05-14 17:03:54.007 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19737, Payload Size: 1559
+2026-05-14 17:03:54.031 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58940, Payload Size: 40367
+2026-05-14 17:03:54.114 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19737, Payload Size: 1559
+2026-05-14 17:04:02.373 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53681, Payload Size: 13481
+2026-05-14 17:04:12.287 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19885, Payload Size: 1422
+2026-05-14 17:04:12.389 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19885, Payload Size: 1422
+2026-05-14 17:04:15.084 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58941, Payload Size: 40655
+2026-05-14 17:04:15.246 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200157, Payload Size: 4227
+2026-05-14 17:04:27.549 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53682, Payload Size: 13416
+2026-05-14 17:04:32.132 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/386, Payload Size: 22246
+2026-05-14 17:04:35.943 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58942, Payload Size: 40800
+2026-05-14 17:04:38.034 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200158, Payload Size: 4234
+2026-05-14 17:04:46.940 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278650, Payload Size: 1423
+2026-05-14 17:04:47.041 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278650, Payload Size: 1423
+2026-05-14 17:04:52.557 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53683, Payload Size: 13543
+2026-05-14 17:04:55.035 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19738, Payload Size: 1560
+2026-05-14 17:04:55.140 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19738, Payload Size: 1560
+2026-05-14 17:04:56.710 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58943, Payload Size: 40594
+2026-05-14 17:05:01.016 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200159, Payload Size: 4245
+2026-05-14 17:05:05.235 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/151, Payload Size: 1559
+2026-05-14 17:05:05.333 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/151, Payload Size: 1559
+2026-05-14 17:05:14.976 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19886, Payload Size: 1416
+2026-05-14 17:05:15.073 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19886, Payload Size: 1416
+2026-05-14 17:05:17.473 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58944, Payload Size: 40802
+2026-05-14 17:05:17.735 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53684, Payload Size: 13622
+2026-05-14 17:05:18.524 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/387, Payload Size: 22372
+2026-05-14 17:05:23.819 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200160, Payload Size: 4244
+2026-05-14 17:05:36.602 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58945, Payload Size: 40341
+2026-05-14 17:05:42.667 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53685, Payload Size: 13356
+2026-05-14 17:05:46.630 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200161, Payload Size: 4230
+2026-05-14 17:05:55.544 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278651, Payload Size: 1426
+2026-05-14 17:05:55.650 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278651, Payload Size: 1426
+2026-05-14 17:05:55.717 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19739, Payload Size: 1559
+2026-05-14 17:05:55.818 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19739, Payload Size: 1559
+2026-05-14 17:05:57.391 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58946, Payload Size: 40230
+2026-05-14 17:06:04.726 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/388, Payload Size: 22340
+2026-05-14 17:06:07.626 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53686, Payload Size: 13530
+2026-05-14 17:06:09.614 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200162, Payload Size: 4239
+2026-05-14 17:06:17.551 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19887, Payload Size: 1426
+2026-05-14 17:06:17.654 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19887, Payload Size: 1426
+2026-05-14 17:06:17.973 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58947, Payload Size: 40220
+2026-05-14 17:06:32.442 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200163, Payload Size: 4226
+2026-05-14 17:06:32.830 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53687, Payload Size: 13336
+2026-05-14 17:06:37.830 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/152, Payload Size: 1556
+2026-05-14 17:06:37.924 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/CheckData/152, Payload Size: 1556
+2026-05-14 17:06:38.714 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58948, Payload Size: 40564
+2026-05-14 17:06:51.142 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/389, Payload Size: 22098
+2026-05-14 17:06:55.273 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200164, Payload Size: 4238
+2026-05-14 17:06:56.364 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19740, Payload Size: 1560
+2026-05-14 17:06:56.475 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/CheckData/19740, Payload Size: 1560
+2026-05-14 17:06:57.749 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53688, Payload Size: 13573
+2026-05-14 17:06:59.535 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58949, Payload Size: 40428
+2026-05-14 17:07:04.201 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278652, Payload Size: 1422
+2026-05-14 17:07:04.300 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/CheckData/278652, Payload Size: 1422
+2026-05-14 17:07:18.267 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200165, Payload Size: 4240
+2026-05-14 17:07:20.119 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19888, Payload Size: 1424
+2026-05-14 17:07:20.230 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/CheckData/19888, Payload Size: 1424
+2026-05-14 17:07:20.612 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58950, Payload Size: 41076
+2026-05-14 17:07:22.885 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000052/IndexData/53689, Payload Size: 13554
+2026-05-14 17:07:37.422 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000055/IndexData/390, Payload Size: 22268
+2026-05-14 17:07:39.865 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000051/IndexData/58951, Payload Size: 40723
+2026-05-14 17:07:41.058 | [MQTT Call: leewell_iss_pub_10.180.90.57] | INFO  | c.lleewell.esbclient.DataForwarder - Received ISS message - Topic: lms2023/Online/IMS-80000053/IndexData/1200166, Payload Size: 4247
