@@ -1,0 +1,28 @@
+[ req ]
+default_bits       = 2048
+prompt             = no
+default_md         = sha256
+req_extensions     = v3_req
+distinguished_name = dn
+
+[ dn ]
+C  = SG
+ST = Singapore
+L  = Singapore
+O  = PSA Corporation Ltd
+OU = ICTD
+CN = esb-sit.f2.gtosplus.opssg
+emailAddress = ops_infra@psa.com.sg
+
+[ v3_req ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+IP.1    = 192.168.20.77
+IP.2    = 10.10.1.66
+IP.3    = 10.150.2.3
+IP.4    = 10.150.130.1
+IP.5    = 10.83.22.66
+IP.6    = 10.83.22.67
+IP.7    = 10.150.31.19
+IP.8    = 10.150.31.20

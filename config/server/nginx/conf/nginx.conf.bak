@@ -1,0 +1,405 @@
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                     '"$http_user_agent" "$http_x_forwarded_for"';
+
+    sendfile        on;
+    access_log  logs/host.access.log  main;
+    keepalive_timeout  65;
+	client_max_body_size 100m;
+
+    server {
+        listen       {{ISS-Platform-PORT}};
+		listen  [::]:{{ISS-Platform-PORT}};
+		server_name  ISS-Platform;
+
+       add_header Access-Control-Allow-Origin *;
+       add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			 root   static/ISS-Platform;
+             index  index.html index.htm;
+             try_files $uri $uri/ /index.html;
+        }  
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+		
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+		
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/ISS-Platform;
+		}
+    }
+
+    server {
+        listen       {{ISS-User-Platform-PORT}};
+		listen  [::]:{{ISS-User-Platform-PORT}};
+		server_name  ISS-User-Platform;
+
+		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/ISS-User-Platform;
+			index  index.html index.htm;
+			try_files $uri $uri/ /index.html;
+        }  
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+		
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+		
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/ISS-User-Platform;
+		}
+    }
+
+    server {
+        listen       {{ISS-Diagnostic-PORT}};
+		listen  [::]:{{ISS-Diagnostic-PORT}};
+		server_name  ISS-Diagnostic;
+
+		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/ISS-Diagnostic;
+			index  index.html index.htm;
+			try_files $uri $uri/ /index.html;
+        } 
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+		
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+		
+		location /dataDilutionServerApi/backup {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/backup; 
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection 'upgrade';
+			proxy_set_header Host $host;
+			proxy_cache_bypass $http_upgrade;
+		}
+		
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}	
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+        error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/ISS-Diagnostic;
+		}		
+    }
+
+    server {
+        listen       {{ISS-Alarm-PORT}};
+		listen  [::]:{{ISS-Alarm-PORT}};
+		server_name  ISS-Alarm;
+
+       add_header Access-Control-Allow-Origin *;
+       add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/ISS-Alarm;
+			index  index.html index.htm;
+			try_files $uri $uri/ /index.html;
+        }  
+		
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+		
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+		
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}	
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+		
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/ISS-Alarm;
+		}
+    }
+
+    server {
+        listen       {{ISS-User-Son-PORT}};
+		listen  [::]:{{ISS-User-Son-PORT}};
+		server_name  ISS-User-Son;
+
+       add_header Access-Control-Allow-Origin *;
+       add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/ISS-User-Son;
+			index  index.html index.htm;
+			try_files $uri $uri/ /index.html;
+        }  
+		
+        location /report/ {
+            alias report/;
+            try_files $uri =404;
+        }
+		
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+		
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+		
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+		
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/ISS-User-Son;
+		}
+    }
+
+	server {
+        listen       {{LPS-User-Platform-PORT}};
+        listen  [::]:{{LPS-User-Platform-PORT}};
+        server_name  LPS-User-Platform;
+
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+            root   static/LPS-User-Platform;
+            index  index.html index.htm;
+                    try_files $uri $uri/ /index.html;
+        }
+
+		location ^~ /baseServerApi/ {
+				proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+
+		location ^~ /waveServerApi/ {
+				proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+
+		location ^~ /dataDilutionServerApi/ {
+				proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+        error_page   500 502 503 504  /50x.html;
+                    location = /50x.html {
+            root   static/LPS-User-Platform;
+        }
+    }
+
+    server {
+        listen       {{LPS-User-Son-PORT}};
+        listen  [::]:{{LPS-User-Son-PORT}};
+        server_name  LPS-User-Son;
+
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+            add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+            root   static/LPS-User-Son;
+            index  index.html index.htm;
+                    try_files $uri $uri/ /index.html;
+        }
+
+		location ^~ /baseServerApi/ {
+				proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+
+		location ^~ /waveServerApi/ {
+				proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+        error_page   500 502 503 504  /50x.html;
+                    location = /50x.html {
+            root   static/LPS-User-Son;
+        }
+    }
+	
+	server {
+        listen       {{EMS-Platform-PORT}};
+        listen  [::]:{{EMS-Platform-PORT}};
+		server_name  EMS-Platform;
+		client_max_body_size 100M;
+		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+		location / {
+			add_header Access-Control-Allow-Origin *;
+			add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+			add_header Access-Control-Allow-Headers
+				'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/EMS-Platform;
+			index index.html index.htm;
+			try_files $uri $uri/ /index.html;
+		}
+
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /version/ {
+			proxy_pass http://127.0.0.1:9201/version.json;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/EMS-Platform;
+		}
+	}
+	
+	server {
+        listen       {{IFES-Platform-PORT}};
+        listen  [::]:{{IFES-Platform-PORT}};
+		server_name  IFES-Platform;
+		client_max_body_size 100M;
+		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+
+		location / {
+			add_header Access-Control-Allow-Origin *;
+			add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+			add_header Access-Control-Allow-Headers
+				'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+			root   static/FPS-Platform;
+			index index.html index.htm;
+			try_files $uri $uri/ /index.html;
+		}
+
+		location ^~ /baseServerApi/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/;
+		}
+
+		location ^~ /waveServerApi/ {
+			proxy_pass http://{{WAVE-HOST}}:{{WAVE-PORT}}/;
+		}
+
+		location ^~ /dataDilutionServerApi/ {
+			proxy_pass http://{{STORAGE-HOST}}:{{STORAGE-PORT}}/;
+		}
+
+		location ^~ /version/ {
+			proxy_pass http://127.0.0.1:9201/version.json;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		}
+
+		location ^~ /jmreport/ {
+			proxy_pass http://{{PLATFORM-HOST}}:{{PLATFORM-PORT}}/jmreport/;
+		}
+
+		error_page   500 502 503 504  /50x.html;
+			location = /50x.html {
+			root   static/FPS-Platform;
+		}
+	}
+}

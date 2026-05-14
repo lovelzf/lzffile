@@ -1,0 +1,182 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/imp_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&useInformationSchema=true
+    username: root
+    password: Leewell123!@#
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: Leewell123!@#
+    database: 1
+    jedis:
+      pool:
+        max-active: 1024
+        max-idle: 200
+        min-idle: 0
+        max-wait: 1000
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: Leewell123
+    virtual-host: /
+  influx:
+    url: http://127.0.0.1:8086
+    user: root
+    password: Leewell123!@#
+    database: "00000001"
+    measurement: index-data
+minio:
+  endPoint: http://127.0.0.1:9000
+  accessKey: root
+  secretKey: Leewell123!@#
+  storageAdd: Z:\minio\minio-data
+kafka:
+  broker: 127.0.0.1:9092
+  group: group1
+  indexTopic: IndexData
+  waveTopic: WaveData
+  checkTopic: CheckData
+backup:
+  #  musqldump.exe
+  mysqldumpPath: D:\IMP-platform\mysql\bin\
+  #  influxd.exe
+  influxdPath: D:\IMP-platform\influxdb\
+  host: localhost
+  port: 3306
+  database: imp_platform
+  influxDBHost: localhost
+  # 
+  baseFolder: D:\IMP-platform\MinIO\minio-data\
+  tables: sys_position,t_bu_self_diagnosis_abnormal_data_record,t_sys_sensortype,t_sys_moduletype_configuration,t_sys_collectormodetype_configuration,sys_role,t_ba_equipment_type,t_bu_alarm_event_diagnosis,sys_relation,t_bu_modbus_config,t_sys_dict_data,t_sys_collectortype_configuration,t_ba_equipment_treenode_machine_part_diagram,t_sys_dictionary,t_bu_alarm_event,t_bu_collector_selfinspection,sys_org,t_bu_collector_module_sensor_configuration,ems_formula,t_ba_machinetype,t_sys_moduletype_sensortype,t_ba_equipment_treenode_equipment,t_sys_target_expand,t_bu_collector_module_sensor,t_bu_collector_module_sensor_measuring_configuration,t_bu_machine_measuring,t_bu_collector,t_sys_collectortype,t_sys_company_expand,ems_data_entry,t_bu_collector_status,t_ba_equipment_treenode_machine_part,t_bu_collector_configuration,t_sys_measuringtype_configuration,t_bu_alarm_event_dtl,t_bu_report,dev_dict,t_sys_device_gateway,t_sys_modbus_config,t_bu_collector_learning,t_sys_sensortype_measuringtype,t_bu_equipment_treenode_equipment_diagnosis,t_sys_collectortype_hardware,ems_equipment_type_position,t_bu_mod_bus_master,t_ba_treenode_focus,t_bu_alarm_interval,t_bu_collector_module_sensor_measuring,t_sys_protocol,t_ba_equipment_treenode,t_bu_collector_updatefile,t_sys_collectortype_updatefile,t_sys_register_activation,t_sys_collectortype_software,t_sys_collector_software,t_bu_collector_module,sys_user,t_sys_measuringtype,t_ba_equipment_treenode_machine_diagram,t_bu_collector_updatefile_plan,t_bu_equipment_treenode_point_part,t_sys_collectortype_moduletype,t_ba_equipment_treenode_machine_part_configuration,t_bu_collector_module_modbus,t_bu_equipment_treenode_point,t_ba_equipment_treenode_machine,t_sys_sensortype_configuration,ems_indicators,t_bu_device_account,t_sys_collectormodetype,t_sys_network_config,t_bu_mod_bus_master_slave_config,t_bu_collector_module_configuration,t_sys_moduletype,dev_file,t_bu_collector_module_trigger,t_bu_equipment_treenode_point_collector,t_bu_device_acc,t_bu_equipment_treenode_point_part
+  ignoreTables: dev_log,dev_config
+  #  项目名称，用于区分不同项目，备份的文件夹会以项目名称开头
+  projectName: local
+  autoBackup:
+    #    是否开启自动备份
+    enableAutoBackup: false
+    #    是否开启上传文件（阿里OSS）
+    enableUpload: false
+    #    自动备份的七子表达式，0 0 1 1 * ? 标识每月1日的1:00:00开始备份
+    cron: "0 0 1 1 * ?"
+    #    最大保留备份数量
+    maxBackupItem: 3
+    #    正数表示天、负数表示月
+    dateRange: -1
+    #    正数表示天、负数表示月
+    offsetDay: 0
+oss:
+  #  阿里OSS相关配置
+  bucket: leewell-backup-test
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  accessKeyId:
+  accessKeySecret:
+install:
+  addr: D:\\
+  influxdbPath: /home/wlf/leewell-storage/Backup/InfluxDB/
+  
+  
+  
+urls:
+  getWaveformFeatures: http://127.0.0.1:8832/GetWaveformFeatures
+  getWaveformFeaturesSwitch: true
+
+ 
+# ??????
+statistic:
+  formula:
+    # ????????????
+    enable-scheduled: true
+
+# RabbitMQ ???????
+rabbitmq:
+  consumer:
+    # ?????? RabbitMQ ???
+    enable: true
+
+# Leewell ?????
+leewell:
+  # ??????????
+  super-fix:
+    scheduled:
+      # ????????????(????)
+      enabled: false
+      # ????????(??????1?)
+      cron: "0 0 1 * * ?"
+      # ?????????
+      batch-size: 50
+      # ????(INTERPOLATE/FORWARD_FILL/BACKWARD_FILL/ZERO_FILL)
+      fix-strategy: INTERPOLATE
+      # ????????
+      enable-anomaly-detection: true
+      # ????????
+      enable-gap-detection: true
+      # ????????
+      enable-gap-interpolation: true
+      # ??????
+      recalculate-amount: true
+      # ??????
+      recalculate-statistics: true
+      # ????(??)
+      interval-ms: 60000
+      # ???????
+      std-deviation-multiplier: 3.0
+      # ???????(kWh)
+      max-hourly-usage: 100000.0
+      # ??????(kWh)
+      max-daily-usage: 1000000.0
+
+  # ??????????
+  data-quality:
+    scheduled:
+      # ????????????(????)
+      enabled: false
+      # ????????(??????2?)
+      cron: "0 0 2 * * ?"
+      # ?????????
+      batch-size: 50
+      # ????
+      interpolation-method: proportional_scaling
+      # ????(??)
+      interval-minutes: 1
+      # ??????
+      force-recalculate: false
+
+# ??????(??32?64???????)
+parallel-execution:
+  # ???????(0 ???? CPU ????75%,? 64 * 0.75 = 48)
+  thread-pool-size: 48
+  # ???????(??????????)
+  max-thread-pool-size: 64
+  # ??????(?)
+  keep-alive-seconds: 60
+  # ??????
+  queue-capacity: 200
+  # ????????(??????? tagName ??,0 ?????,????)
+  electricity-fix-batch-size: 0
+  # ????????(???????????,0 ?????,????)
+  formula-recalc-batch-size: 0
+
+# ?????????
+data-dilution:
+  auto:
+    # ????????
+    enabled: true
+    # ????cron???(??????1???)
+    cron: "0 0 1 * * ?"
+    # ??ID??(????)
+    tenant-ids: "00000001"
+  disk:
+    # ???????(???)
+    high: 85.0
+    # ???????(???)
+    low: 75.0
+  protection:
+    # ?????(?)- ??N?????????
+    absolute-days: 90
+  strategy:
+    # ??????????????
+    keep-count-per-day: 6
+    # ????(?)- ?????????????????
+    retention-period-years: 3

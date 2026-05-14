@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: leewell-esb-client
+  profiles:
+    active: prod
+  autoconfigure:
+    exclude: com.solace.spring.boot.autoconfigure.SolaceJmsAutoConfiguration
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+#    com.solacesystems: debug
+#    com.psa.gtosplus.esb.client: debug
+    com.psa.gtosplus.esb.client.internal.protocol.SmfPubSub: warn
+#    com.lleewell.esbclient.reliability.reconnect: DEBUG  # 重连详细日志
+#    org.eclipse.paho.client.mqttv3: DEBUG                # MQTT 客户端日志
+server:
+  port: 10029
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: esb-client
+
+# Leewell 业务配置
+leewell:
+  mqtt:
+    enable-async: true
+    # 设备配置
+    devices:
+      # 钢丝绳设备
+      - name: collect-client
+        description: 钢丝绳设备
+        upstream-topic: collect-client/Online/#    # 上行: 硬件 → ESB (包含Online)
+        downstream-topic: collect-client/#       # 下行: ESB → 上位机 (排除Online)
+
+      # 态势设备
+      - name: lms2023
+        description: 态势设备
+        upstream-topic: lms2023/Online/#           # 上行: 包含Online
+        downstream-topic: lms2023/#              # 下行: 排除Online
+
+  transport:
+    # 消息传输格式: ESB(标准格式) 或 DEFAULT(原始格式)
+    format: ESB
+
+  # ESBClient线程池模式配置
+  esb-client-pool:
+    # 是否启用ESBClient对象池（默认false）
+    # false: 同步模式（MQTT回调直接处理，使用单例ESBClient，处理能力接近500条每秒）
+    # true: 异步模式（线程池异步处理，每线程独立ESBClient实例）
+    enabled: true
+  connection:
+    reconnect:
+      enabled: true

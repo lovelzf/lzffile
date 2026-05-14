@@ -1,0 +1,138 @@
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/imp_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&useInformationSchema=true
+          username: root
+          password: Leewell123!@#
+  mqtt:
+    broker: tcp://127.0.0.1:1883
+    clientid: liwei-webapp-2
+    username: root
+    password: Leewell123!@#
+    qos: 0
+    work-thread-length: 5
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: Leewell123
+    virtual-host: /
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    password: Leewell123!@#
+    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 200
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+  influx:
+    url: http://127.0.0.1:8086
+    user: root
+    password: Leewell123!@#
+  liquibase:
+    enabled: true
+    # 指定环境
+    contexts: prod
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+sa-token:
+  activity-timeout: -1
+  alone-redis:
+    database: 2
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: ${spring.redis.lettuce.pool.max-active}
+        max-idle: ${spring.redis.lettuce.pool.max-idle}
+        max-wait: ${spring.redis.lettuce.pool.max-wait}
+        min-idle: ${spring.redis.lettuce.pool.min-idle}
+    password: Leewell123!@#
+    port: 6379
+    timeout: 10s
+  is-concurrent: true
+  is-log: false
+  is-print: false
+  is-share: false
+  max-login-count: -1
+  timeout: 2592000
+  token-name: token
+  token-style: random-32
+alarm-GetDynamicThreshold: http://127.0.0.1:8830/GetDynamicThreshold
+alarm-autoThreshold: http://127.0.0.1:8886/alarm/historyData
+config:
+  #  回放取流方式:1-保持和直播一样,2-SDK取流
+  replayType: 2
+  #直播流保活时间(分钟)
+  keepalive: 5
+  #nginx推送地址
+  push_host: 10.150.78.6
+  #额外推送地址
+  host_extra: 127.0.0.1
+  #nginx推送端口
+  push_port: 1935
+  #主码流最大码率
+  main_code: 5120
+  #子码流最大码率
+  sub_code: 1024
+  #rtmp直播地址前缀
+  rtmpPrefix: rtmp://10.150.78.6:1935/live/
+  urlPrefix: http://10.150.78.6:8911/live?port=1935&app=live&stream=%s
+  cameraStreamHost: 127.0.0.1
+fl-order: http://127.0.0.1:8887/order
+fl-query: http://127.0.0.1:8886/thunder/query
+fl-queryYcStatisticData: http://127.0.0.1:8886/thunder/queryYcStatisticData
+fl-queryYmStatisticData: http://127.0.0.1:8886/thunder/queryYmStatisticData
+license:
+  publicAlias: LWIVS
+  publicKeysStorePath: D:\certkey\publicCerts.keystore
+  storage:
+    path: D:\data\
+  storePass: LW20230306EC
+liwei:
+  config:
+    collect-para-url: http://127.0.0.1:9101/collector/config/collectPara/
+    default:
+      version: 1
+    mod-bus-url: http://127.0.0.1:9101/modBus/config/
+    sys-para-url: http://127.0.0.1:9101/collector/config/sysPara/
+    url-prefix: http://
+  storage:
+    measure-type-hour-max-avg: http://127.0.0.1:8886/indexData/hourMaxAvg
+  long-range:
+    index-data-list: http://127.0.0.1:8886/indexData/list
+    index-data-page: http://127.0.0.1:8886/indexData/page
+    index-data-url: http://127.0.0.1:8886/indexData/batchSave
+    index-data-url-single: http://127.0.0.1:8886/indexData/save
+    index-data-query-by-sql: http://127.0.0.1:8886/indexData/queryBySql
+    wave-data-latest-data: http://127.0.0.1:8886/waveData/latestData
+    wave-data-list: http://127.0.0.1:8886/waveData/trend/list
+    wave-data-page: http://127.0.0.1:8886/waveData/trend/page
+    wave-data-singe: http://127.0.0.1:8886/waveData/query
+    wave-data-url: http://127.0.0.1:8886/waveData/save
+  save:
+    index-data-url: http://127.0.0.1:8886/indexData/batchSave
+    index-data-url-single: http://127.0.0.1:8886/indexData/save
+    wave-data-url: http://127.0.0.1:8886/waveData/save
+  diagnosis:
+    intelligent-diagnosis-url: http://127.0.0.1:8830/GetAutoDiagnosis
+    predicate-lifespan-url: http://127.0.0.1:8830/GetRULestimation
+    predicate-stress-lifespan-url: http://127.0.0.1:8830/GetSNRUL
+save_mode: rabbit
+self_detection_time: 120000
+speedExpiredTime: 120000
+sms_send_server: 1
+system:
+  version: 1.0-20230209ZD-BC
+upgradeJobCron: 0 */30 1 * * ?
+communicationStatusCron: 0 */2 * * * ?
+collectorCheckDataCron: 0 */1 * * * ?
+autoCloseAlarmCron: 0 1 0 * * ?
+autoCloseAlarmRate: -1
+replaceMenuIp: 0
+getClusterLine: http://127.0.0.1:8830/GetClusterLine

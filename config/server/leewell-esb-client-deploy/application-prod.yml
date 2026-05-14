@@ -1,0 +1,19 @@
+# Leewell 业务配置
+leewell:
+  mqtt:
+    # 部署位置: DEVICE(设备端) 或 CENTER(中心端)
+    # 设备端的 PUBLISH 是将 broker-url 的 upstream-topic 发送到 ESB Server，SUBSCRIBE 是将 ESB Server 的 downstream-topic 发送到 broker-url
+    # 中心端的 PUBLISH 是将 broker-url 的 downstream-topic 发送到 ESB Server，SUBSCRIBE 是将 ESB Server 的 upstream-topic 发送到 broker-url
+    deploy-location: CENTER
+    # 传输模式: PUBLISH(上报到ESB) 或 SUBSCRIBE(从ESB订阅)
+    # 支持组合模式: PUBLISH,SUBSCRIBE (双向传输)
+    transport-mode: PUBLISH,SUBSCRIBE
+    # MQTT Broker 地址
+    # 设备端部署时: 指向设备端MQTT (如 tcp://10.128.128.32:1883)
+    # 中心端部署时: 指向中心端MQTT (如 tcp://10.10.1.125:1883)
+    broker-url: tcp://10.150.78.6:1883
+    # MQTT 连接凭证
+    username: root
+    password: Leewell123!@#
+  port-forward:
+    enabled: true

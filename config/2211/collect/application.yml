@@ -1,0 +1,45 @@
+server:
+  port: 8808
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: collect-platform
+  data:
+    redis:
+      timeout: 10s
+      lettuce:
+        pool:
+          max-active: 200
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 0
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      maximumPoolSize: 10
+      minimumIdle: 2
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: stat
+    initialSize: 1
+    maxActive: 20
+    maxOpenPreparedStatements: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 1
+    name: basics
+    poolPreparedStatements: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    validationQuery: select 'x'
+minio:
+  endPoint: http://127.0.0.1:9000
+  accessKey: leewell
+  secretKey: leewell123
+  storageAdd: Z:\minio\minio-data

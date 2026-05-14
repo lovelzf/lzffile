@@ -1,0 +1,39 @@
+﻿spring:
+  data:
+    redis:
+      database: 1
+      host: 10.180.73.231
+      port: 6379
+      password: Leewell123!@#
+  datasource:
+    url: jdbc:mysql://10.180.73.231:3306/imp_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&useInformationSchema=true
+    username: root
+    password: Leewell123!@#
+  rabbitmq:
+    host: 10.180.73.231
+    port: 5672
+    username: root
+    password: Leewell123
+    virtual-host: /
+leewell:
+  collect:
+    platform:
+      maxRetryCount: -1
+      batchAlarmUrl: http://10.180.73.231:9200/lps/alarm/batchAdd
+      emsBatchAlarmUrl: http://10.180.73.231:9200/ems/alarm/add
+      collectUpdateFileUrl: http://10.180.73.231:9200/collectorUpdateFile/file
+      collectUpdateFileListUrl: http://10.180.73.231:9200/collectorUpdateFile/fileInfo
+      # 配置 opcua协议 过滤不需要的测量类型   写code
+      measuringIgnoreList: 17,18,19
+minio:
+  endPoint: http://10.180.73.231:9000
+  accessKey: root
+  secretKey: Leewell123!@#
+  storageAdd: D:\IMP-platform\MinIO\minio-data
+
+wrd:
+  alarm:
+    host: 127.0.0.1
+    port: 9200
+    sync: 
+      enabled: true

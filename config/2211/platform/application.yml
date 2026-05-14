@@ -1,0 +1,104 @@
+server:
+  max-http-header-size: 16KB
+  port: 9200
+#  ssl:
+#    key-store: classpath:leewell.jks
+#    key-store-password: 123456
+#    key-store-type: JKS
+#  ssl:
+#    key-store: classpath:monitor.lleewell.com.jks
+#    key-store-password: 4q7euu1g
+#    key-store-type: JKS
+spring:
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: Leewell123!@#
+      filters: stat
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      test-on-borrow: true
+      validation-query: SELECT 1
+      validation-query-timeout: 5000
+      remove-abandoned: true
+      log-abandoned: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  messages:
+    basename: messages
+    encoding: UTF-8
+camunda:
+  bpm:
+    auto-deployment-enabled: false
+    database:
+      schema-update: true
+    eventing:
+      history: false
+    job-execution:
+      enabled: false
+    metrics:
+      enabled: false
+data-language: 0
+easy-trans:
+  is-enable-global: true
+  is-enable-redis: true
+  is-enable-tile: true
+knife4j:
+  basic:
+    enable: true
+    username: root
+    password: Leewell123!@#
+  enable: true
+  production: false
+  setting:
+    enableFooter: false
+    enableFooterCustom: true
+    enableOpenApi: false
+    enableSwaggerModels: false
+    footerCustomContent: Apache License 2.0 | Copyright 2022-[SNOWY](https://www.xiaonuo.vip)
+mybatis-plus:
+  configuration:
+    jdbc-type-for-null: 'null'
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: ASSIGN_ID
+      logic-delete-field: DELETE_FLAG
+      logic-delete-value: DELETED
+      logic-not-delete-value: NOT_DELETE
+  mapper-locations: classpath*:vip/xiaonuo/**/mapping/*.xml,com/lleewell/**/mapping/*.xml,com/bstek/**/mapping/*.xml
+  type-handlers-package: vip.xiaonuo.common.handler
+snowy:
+  config:
+    common:
+      backend-url: http://127.0.0.1:82
+      front-url: http://127.0.0.1:81
+    ten:
+      default-ten-id: -1
+      enabled: false
+      ignore-table-names: ''
+      ten-id-column-name: TENANT_ID
+expert:
+  diagnosis:
+    report:
+      plan:
+        date:
+          url: '"http://127.0.0.1"'
+config:
+  cameraStreamHost: 127.0.0.1
+  videoStreamPort: 8080
+  picAddr:
