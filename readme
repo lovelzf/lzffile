@@ -1,6 +1,10 @@
 netstat -ano | findstr "10.150.130.1:55555"
 https://mqttx.app/zh/downloads
 
+
+执行完成之后 ： cd D:\IMP-platform\Redis; .\redis-cli.exe -a Leewell123!@# flushall
+Wire Rope Comprehensive Management Platform
+
 DA5742569
 DA5804527
 DA6136140
